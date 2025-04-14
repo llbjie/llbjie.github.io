@@ -69,19 +69,6 @@ pagination_dir: page
 include: null
 exclude: null
 ignore: null
-theme: icarus
-deploy:
-  type: git
-  repository: git@github.com:llbjie/llbjie.github.io.git
-  branch: main
-  kramed: null
-  gfm: true
-  pedantic: false
-  sanitize: false
-  tables: true
-  breaks: true
-  smartLists: true
-  smartypants: true
 hide_posts:
   enable: true
   filter: hidden
@@ -91,3 +78,4 @@ hide_posts:
   blocklist_generators:
     - index
     - feed
+theme: icarus
