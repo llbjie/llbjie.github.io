@@ -79,3 +79,8 @@ hide_posts:
     - index
     - feed
 theme: icarus
+
+deploy:
+  - type: git
+    repo: git@github.com:llbjie/llbjie.github.io.git
+    branch: main
