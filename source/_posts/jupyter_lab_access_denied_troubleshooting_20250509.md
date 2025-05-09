@@ -1,5 +1,5 @@
 ---
-title: 执行`jupyter-lab`命令后，浏览器显示拒绝访问文件
+title: 执行 jupyter-lab 命令后，浏览器显示拒绝访问文件
 categories: 遇到的各种问题
 abbrlink: e0801949
 date: 2025-05-09 12:33:01
