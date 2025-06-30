@@ -247,7 +247,7 @@ widgets:
     # Author's current location
     location: 银河系
     # URL or path to the avatar image
-    avatar:
+    avatar: images/avatar.png
     # Whether show the rounded avatar image
     avatar_rounded: false
     # Email address for the Gravatar
