@@ -30,6 +30,6 @@
     "inferno": "^9.0.3",
     "inferno-create-element": "^8.2.3",
     "list": "^2.0.19",
-    "semver": "^7.7.1"
+    "semver": "^7.7.3"
   }
 }
