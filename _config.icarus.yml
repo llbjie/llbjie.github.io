@@ -3,7 +3,8 @@ version: 5.1.0
 # Icarus theme variant, can be "default" or "cyberpunk"
 variant: default
 # Path or URL to the website's logo
-logo: /img/logo.svg
+logo: 
+  text: Line's Blog
 # Page metadata configurations
 head:
   # URL or path to the website's icon
@@ -104,16 +105,14 @@ head:
 navbar:
   # Navigation menu items
   menu:
-    Home: /
-    Archives: /archives
-    Categories: /categories
-    Tags: /tags
+    首页: /
+    归档: /archives
+    分类: /categories
+    标签: /tags
     About: /about
   # Links to be shown on the right of the navigation bar
   links:
-    Download on GitHub:
-      icon: fab fa-github
-      url: https://github.com/ppoffice/hexo-theme-icarus
+
 # Page footer configurations
 footer:
   # Copyright text
@@ -164,22 +163,29 @@ search:
 # Comment plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 
+# comment:
+#   type: utterances
+#   client_id: 
+#   client_secret: 
+#   repo: llbjie.github.io
+#   owner: llbjie
+#   admin:
+#     - llbjie
+#   per_page: 20 # 可选填
+#   distraction_free_mode: false # 可选填
+#   pager_direction: last # 可选填
+#   create_issue_manually: false # 可选填
+#   proxy: 
+#   flip_move_options: # 可选填
+#   enable_hotkey: true # 可选填
+#   language: zh-CN # 可选填
 comment:
-  type: gitalk
-  client_id: Ov23liMZg6j3ykyWLmCk
-  client_secret: 2b40b0a577fead500540ce9829257abb70aa177a
-  repo: llbjie.github.io
-  owner: llbjie
-  admin:
-    - llbjie
-  per_page: 20 # 可选填
-  distraction_free_mode: false # 可选填
-  pager_direction: last # 可选填
-  create_issue_manually: false # 可选填
-  proxy: # 可选填
-  flip_move_options: # 可选填
-  enable_hotkey: true # 可选填
-  language: zh-CN # 可选填
+    type: utterances
+    repo: llbjie/llbjie.github.io
+    issue_term: pathname        # Required if issue_number is not set
+    #issue_number: 100           # Required if issue_term is not set. Every post can be mapped to a separate, manually-created GitHub issue.
+    #label: some-issue-label     # Optional
+    theme: github-light         # Optional
 
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
@@ -249,7 +255,7 @@ widgets:
     # URL or path to the avatar image
     avatar: images/avatar.png
     # Whether show the rounded avatar image
-    avatar_rounded: false
+    avatar_rounded: true
     # Email address for the Gravatar
     gravatar:
     # URL or path for the follow button

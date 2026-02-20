@@ -130,3 +130,11 @@ module.exports = class extends Component {
         </Fragment>;
     }
 };
+
+<script src="https://utteranc.es/client.js"
+        repo="llbjie/llbjie.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
