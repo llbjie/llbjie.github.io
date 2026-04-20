@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>计网总结 - lbj&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lbj&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lbj&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="内容包括：  ip协议 TCP 协议 网络相关的命令 linux socket 编程 FTP 协议 SSL&amp;#x2F;TLS 协议"><meta property="og:type" content="blog"><meta property="og:title" content="计网总结"><meta property="og:url" content="https://llbjie.github.io/posts/f3d4e33a.html"><meta property="og:site_name" content="lbj&#039;s Blog"><meta property="og:description" content="内容包括：  ip协议 TCP 协议 网络相关的命令 linux socket 编程 FTP 协议 SSL&amp;#x2F;TLS 协议"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://llbjie.github.io/images/ip_header.png"><meta property="og:image" content="https://llbjie.github.io/images/tcp_header.png"><meta property="article:published_time" content="2026-03-27T01:52:24.000Z"><meta property="article:modified_time" content="2026-04-20T02:26:05.383Z"><meta property="article:author" content="lbj"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="linux"><meta property="article:tag" content="tcp"><meta property="article:tag" content="ip"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llbjie.github.io/images/ip_header.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llbjie.github.io/posts/f3d4e33a.html"},"headline":"计网总结","image":["https://llbjie.github.io/images/ip_header.png","https://llbjie.github.io/images/tcp_header.png"],"datePublished":"2026-03-27T01:52:24.000Z","dateModified":"2026-04-20T02:26:05.383Z","author":{"@type":"Person","name":"lbj"},"publisher":{"@type":"Organization","name":"lbj's Blog","logo":{"@type":"ImageObject","url":{"text":"lbj's Blog"}}},"description":"内容包括：  ip协议 TCP 协议 网络相关的命令 linux socket 编程 FTP 协议 SSL&#x2F;TLS 协议"}</script><link rel="canonical" href="https://llbjie.github.io/posts/f3d4e33a.html"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">lbj&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-lightbulb" id="night-icon"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-03-27T01:52:24.000Z" title="3/27/2026, 9:52:24 AM">2026-03-27</time>发表</span><span class="level-item"><time dateTime="2026-04-20T02:26:05.383Z" title="4/20/2026, 10:26:05 AM">2026-04-20</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><span class="level-item">18 分钟读完 (大约2656个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">计网总结</h1><div class="content"><p>内容包括：</p>
+<ol>
+<li>ip协议</li>
+<li>TCP 协议</li>
+<li>网络相关的命令</li>
+<li>linux socket 编程</li>
+<li>FTP 协议</li>
+<li>SSL&#x2F;TLS 协议</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="IP-协议"><a href="#IP-协议" class="headerlink" title="IP 协议"></a>IP 协议</h2><h3 id="头部格式"><a href="#头部格式" class="headerlink" title="头部格式"></a>头部格式</h3><p><img src="/images/ip_header.png" alt="IP协议报文头部格式"></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>长度</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>版本号</td>
+<td>4位</td>
+<td>ip协议的版本</td>
+</tr>
+<tr>
+<td>头部长度</td>
+<td>4位</td>
+<td>表示头部的长度，以32bit为单位，所以最大长度位60字节</td>
+</tr>
+<tr>
+<td>服务类型</td>
+<td>8位</td>
+<td>用于设置最小延时，最大吞吐量，最高可靠性等</td>
+</tr>
+<tr>
+<td>总长度</td>
+<td>16位</td>
+<td>整个ip报文的总长度，以字节为单位，所以IP报文的最长长度为 2^16-1字节</td>
+</tr>
+<tr>
+<td>标识</td>
+<td>16位</td>
+<td>同一个ip报文的标识号相同</td>
+</tr>
+<tr>
+<td>标志</td>
+<td>3位</td>
+<td>DF, MF</td>
+</tr>
+<tr>
+<td>片偏移</td>
+<td>13位</td>
+<td>分片相对于原始IP数据包的偏移，以字节为单位</td>
+</tr>
+<tr>
+<td>TTL</td>
+<td>8位</td>
+<td></td>
+</tr>
+<tr>
+<td>协议</td>
+<td>8位</td>
+<td>区分上层协议， tcp 6, icmp1, udp 17</td>
+</tr>
+<tr>
+<td>头部校验和</td>
+<td>16位</td>
+<td>crc检验</td>
+</tr>
+<tr>
+<td>源IP</td>
+<td>32位</td>
+<td></td>
+</tr>
+<tr>
+<td>目的IP</td>
+<td>32位</td>
+<td></td>
+</tr>
+<tr>
+<td>选项</td>
+<td>未确定</td>
+<td>最多40字节</td>
+</tr>
+</tbody></table>
+<h2 id="TCP-协议"><a href="#TCP-协议" class="headerlink" title="TCP 协议"></a>TCP 协议</h2><h3 id="简单描述一下什么是TCP协议"><a href="#简单描述一下什么是TCP协议" class="headerlink" title="简单描述一下什么是TCP协议"></a>简单描述一下什么是TCP协议</h3><p>tcp协议是面向连接的，可靠的基于字节流的通信协议，工作再tcp四层协议中的传输层。<br>面向连接的，可靠的，基于字节流的协议<br>面向连接：三次握手、四次挥手，只能一对一通信<br>可靠：拥塞控制，流量控制，发送应答机制，超时重传<br>字节流：无边界</p>
+<h3 id="头部格式-1"><a href="#头部格式-1" class="headerlink" title="头部格式"></a>头部格式</h3><p><img src="/images/tcp_header.png" alt="alt text"></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>长度</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>源端口</td>
+<td>16位</td>
+<td></td>
+</tr>
+<tr>
+<td>目的端口</td>
+<td>16位</td>
+<td></td>
+</tr>
+<tr>
+<td>序列号</td>
+<td>32位</td>
+<td></td>
+</tr>
+<tr>
+<td>确认号</td>
+<td>32位</td>
+<td></td>
+</tr>
+<tr>
+<td>头部长度</td>
+<td>4位</td>
+<td></td>
+</tr>
+<tr>
+<td>保留字段</td>
+<td>6位</td>
+<td></td>
+</tr>
+<tr>
+<td>选项</td>
+<td>6位</td>
+<td></td>
+</tr>
+<tr>
+<td>窗口大小</td>
+<td>16位</td>
+<td></td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>16位</td>
+<td></td>
+</tr>
+<tr>
+<td>紧急指针</td>
+<td>16位</td>
+<td></td>
+</tr>
+<tr>
+<td>选项</td>
+<td>最多40字节</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="服务端最大tcp连接数是多少"><a href="#服务端最大tcp连接数是多少" class="headerlink" title="服务端最大tcp连接数是多少"></a>服务端最大tcp连接数是多少</h3><p>理论上是 2^32 * 2^16 &#x3D; 2^48个连接，但是实际上会受到系统的限制，例如</p>
+<ul>
+<li>每次创建socket连接都会打开一个文件描述符，操作系统对文件描述符打开的数量进行了限制。分成三种限制<ol>
+<li>系统限制， &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max ,这是系统可以打开的最大文件数限制</li>
+<li>用户限制， &#x2F;etc&#x2F;security&#x2F;limits.conf， 用户级别的限制</li>
+<li>进程限制， &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;nr-open, 进行可以打开的文件数，我的电脑上是1048576</li>
+</ol>
+</li>
+<li>内存上也有限制，操作系统的内存是有限的，打开过多的话会造成OOM</li>
+</ul>
+<h3 id="TCP和UDP的区别，各自的应用场景"><a href="#TCP和UDP的区别，各自的应用场景" class="headerlink" title="TCP和UDP的区别，各自的应用场景"></a>TCP和UDP的区别，各自的应用场景</h3><p>第一，先描述tcp协议，（面向连接，可靠，基于字节流），udp协议是不可靠的，无连接的协议，只在ip协议上做了简单的封装<br>第二，tcp协议是面向连接的，所以只能提供一对一的连接，而udp可以提供一对一，一对多，多对多的通信，<br>第三，tcp协议提供可靠的服务，因此udp协议的开销小于tcp,但是可以根据udp协议实现一个可靠的通信协议，如http3使用的quic协议<br>第四，由于上面的特性，tcp协议经常用于 http&#x2F;https, ftp协议，这些对安全性，可靠性要求比较高的地方，视频，音频等场景更适合使用udp协议</p>
+<h3 id="使用那些信息唯一确定一个连接-确定一个socket"><a href="#使用那些信息唯一确定一个连接-确定一个socket" class="headerlink" title="使用那些信息唯一确定一个连接&#x2F;确定一个socket"></a>使用那些信息唯一确定一个连接&#x2F;确定一个socket</h3><p>源Ip地址，目的ip地址，源端口，目的端口，使用的协议（udp&#x2F;tcp），这也就导致tcp和udp可以同时使用一个端口</p>
+<h3 id="多个-TCP-服务进程可以同时绑定同一个端口吗？"><a href="#多个-TCP-服务进程可以同时绑定同一个端口吗？" class="headerlink" title="多个 TCP 服务进程可以同时绑定同一个端口吗？"></a>多个 TCP 服务进程可以同时绑定同一个端口吗？</h3><p>可以的，如果计算机上有多个网卡，可以绑定到同一个端口</p>
+<h3 id="重启-TCP-服务进程时，为什么会出现“Address-in-use”的报错信息？又该怎么避免？"><a href="#重启-TCP-服务进程时，为什么会出现“Address-in-use”的报错信息？又该怎么避免？" class="headerlink" title="重启 TCP 服务进程时，为什么会出现“Address in use”的报错信息？又该怎么避免？"></a>重启 TCP 服务进程时，为什么会出现“Address in use”的报错信息？又该怎么避免？</h3><h3 id="Time-wait状态过多是什么原因，怎么处理"><a href="#Time-wait状态过多是什么原因，怎么处理" class="headerlink" title="Time_wait状态过多是什么原因，怎么处理"></a>Time_wait状态过多是什么原因，怎么处理</h3><h3 id="TCP-三次握手的过程"><a href="#TCP-三次握手的过程" class="headerlink" title="TCP 三次握手的过程"></a>TCP 三次握手的过程</h3><p>连接过程分成两方，通常来说，发起连接的被称作客户端， 被动接受连接的称作服务器。连接过程如下：</p>
+<ol>
+<li>首先，服务端会处于listen状态，表示正在监听连接某个端口</li>
+<li>然后正式开始连接过程， 客户端发起一个连接，会发送一个tcp连接报文，会初始化序列号为随机值，SYN置为1,发送完毕后，客户端进入 SYN_SENT状态</li>
+<li>服务端收到这个连接报文后，进入SYN_RCVD状态，然后发送一个ACK报文，确认号是上一个报文的序列号+1， 序列号为随机值，SYN置为1;发送完毕后进入</li>
+<li>客户端收到这个报文后，进入【连接建立状态】，然后发送一个ack报文，同样的ack_number &#x3D; seq_num + 1，这个时候报文中就可以携带数据了</li>
+<li>服务端收到报文后，进入 【连接建立状态】</li>
+</ol>
+<h3 id="为什么是三次连接而不是二次-四次"><a href="#为什么是三次连接而不是二次-四次" class="headerlink" title="为什么是三次连接而不是二次&#x2F;四次"></a>为什么是三次连接而不是二次&#x2F;四次</h3><ol>
+<li>确保旧的连接不会干扰新的连接，阻止重复连接的初始化</li>
+<li>同步序列号</li>
+</ol>
+<h3 id="四次挥手的过程"><a href="#四次挥手的过程" class="headerlink" title="四次挥手的过程"></a>四次挥手的过程</h3><p>假设是客户端发起的断开连接，</p>
+<ol>
+<li>首先发送一个 TCP首部FIN位置置为1的报文，进入【FIN_WAIT_1状态】</li>
+<li>服务端接受到这个报文后，发送一个ACK报文，进入【close_wait状态】</li>
+<li>客户端收到ack报文后， 进入【fin_wait_2状态】</li>
+<li>服务端发送fin报文， 进入【last_check状态】</li>
+<li>客户端收到fin报文后，回复一个ack报文， 进入 【time_wait状态】</li>
+</ol>
+<h3 id="为什么需要-【time-wait】状态"><a href="#为什么需要-【time-wait】状态" class="headerlink" title="为什么需要 【time_wait】状态"></a>为什么需要 【time_wait】状态</h3><ol>
+<li>防止历史连接中的数据，被后面相同四元组的连接错误的接收；</li>
+<li>保证「被动关闭连接」的一方，能被正确的关闭；</li>
+</ol>
+<h2 id="网络相关的命令"><a href="#网络相关的命令" class="headerlink" title="网络相关的命令"></a>网络相关的命令</h2><ul>
+<li><code>ip addr</code> ：层级显示网卡，ip相关的信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 00:15:5d:26:f2:1e brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.31.148.126/20 brd 172.31.159.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::215:5dff:fe26:f21e/64 scope <span class="built_in">link</span></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ss -ant</code> : 显示网络状态的信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ss -ant</span><br><span class="line">State        Recv-Q        Send-Q                Local Address:Port               Peer Address:Port       Process</span><br><span class="line">LISTEN       0             511                       127.0.0.1:6379                    0.0.0.0:*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ping</code> 使用icmp测试连通性</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (153.3.238.28) 56(84) bytes of data.</span><br><span class="line">64 bytes from 153.3.238.28: icmp_seq=1 ttl=43 <span class="keyword">time</span>=17.4 ms</span><br></pre></td></tr></table></figure>
+
+<p>– <code>traceroute</code> : 跟踪路由经过的跳数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># todo</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ip route</code> : 查看路由表</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ip route</span><br><span class="line">default via 172.31.144.1 dev eth0 proto kernel</span><br><span class="line">172.31.144.0/20 dev eth0 proto kernel scope <span class="built_in">link</span> src 172.31.148.126</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>tcpdump</code> : 网络抓包</li>
+<li>-i 指定要监听的网卡名</li>
+<li>-nn 不解析域名</li>
+<li>-S 显示绝对序列号</li>
+<li>-VV 详细输出</li>
+<li>-X 以十六进制显示数据包内容</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 host 172.31.148.126 and dst port 80 -nn -S -vv -X</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">sudo</span> tcpdump -i eth0 host 172.31.148.126 and dst port 80 -nn -S -vv -X</span><br><span class="line">tcpdump: listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes</span><br><span class="line">14:59:24.122603 IP (tos 0x0, ttl 64, <span class="built_in">id</span> 54779, offset 0, flags 「DF」, proto TCP (6), length 60)</span><br><span class="line">    172.31.148.126.60852 &gt; 124.237.177.164.80: Flags 「S」, <span class="built_in">cksum</span> 0x6f5e (incorrect -&gt; 0x9b6a), <span class="built_in">seq</span> 1140311734, win 64240, options [mss 1460,sackOK,TS val 1079970147 ecr 0,nop,wscale 7], length 0</span><br><span class="line">        0x0000:  4500 003c d5fb 4000 4006 f590 ac1f 947e  E..&lt;..@.@......~</span><br><span class="line">        0x0010:  7ced b1a4 edb4 0050 43f7 c6b6 0000 0000  |......PC.......</span><br><span class="line">        0x0020:  a002 faf0 6f5e 0000 0204 05b4 0402 080a  ....o^..........</span><br><span class="line">        0x0030:  405f 0963 0000 0000 0103 0307            @_.c........</span><br></pre></td></tr></table></figure>
+
+<h2 id="socket-编程"><a href="#socket-编程" class="headerlink" title="socket 编程"></a>socket 编程</h2><h3 id="close-int-fd"><a href="#close-int-fd" class="headerlink" title="close(int fd)"></a><code>close(int fd)</code></h3><p>将fd的引用计数降低1，只有当引用计数为0的时候才真正关闭fd</p>
+<h3 id="shutdown-int-fd-int-how"><a href="#shutdown-int-fd-int-how" class="headerlink" title="shutdown(int fd, int how)"></a><code>shutdown(int fd, int how)</code></h3><p>无论如何都要关闭连接，how的选项有： <code>shut_rd</code>关闭这边的读、<code>shut_wr</code>关闭这边的写， <code>shut_rdwr</code>关闭读写</p>
+<h3 id="int-socket-int-domain-int-type-int-protocol"><a href="#int-socket-int-domain-int-type-int-protocol" class="headerlink" title="int socket(int domain, int type, int protocol)"></a>int socket(int domain, int type, int protocol)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// domain： 协议族，PF_INET, PF_INET6, PF_UNIX</span></span><br><span class="line"><span class="comment">// type: 服务类型：SOCK_STREAM,SOCK_DGRAM，SOCK_CLOEXEC,SOCK_NONBLOCK</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="socket选项"><a href="#socket选项" class="headerlink" title="socket选项"></a>socket选项</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">setsockopt</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getsockopt</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">void</span> *__restrict optval, <span class="type">socklen_t</span> *__restrict optlen)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="半连接-全连接队列是什么"><a href="#半连接-全连接队列是什么" class="headerlink" title="半连接&#x2F;全连接队列是什么"></a>半连接&#x2F;全连接队列是什么</h3><h2 id="FTP协议"><a href="#FTP协议" class="headerlink" title="FTP协议"></a>FTP协议</h2><p>FTP 是一种基于 TCP 的应用层协议，用于数据传输。采用的是C&#x2F;S模式，它分成两个连接，一个是控制连接，一个是数据连接<br>控制连接使用端口21， 用于发送命令和响应；<br>数据连接使用端口20，有主动和被动两种方式，主动模式是指服务端主动向客户端提供的端口进行连接，被动模式是指客户端请求服务端开启一个随机端口用于数据传输</p>
+<h2 id="SMTP-协议"><a href="#SMTP-协议" class="headerlink" title="SMTP 协议"></a>SMTP 协议</h2><p>smtp协议主要用于发送电子邮件，使用端口25进行通信。工作流程分成三步<br>第一步，客户端与邮件服务器建立连接<br>第二步，客户端将邮件发送给邮件服务器<br>第三步，客户端关闭邮件服务器的连接</p>
+<p>smpt 主要用于邮件的“推”阶段，要向从邮件服务器上拉去邮件，一般使用pop协议</p>
+<h2 id="SSL-TLS-协议"><a href="#SSL-TLS-协议" class="headerlink" title="SSL&#x2F;TLS 协议"></a>SSL&#x2F;TLS 协议</h2><p>ssl&#x2F;tsl协议通常用于保护互联网通信。它从三个方面进行保护</p>
+<ol>
+<li>混合加密，使用非对称加密保护密钥，使用对称加密保护传输的信息</li>
+<li>数字签名,数字签名确保信息没有被篡改</li>
+<li>证书，证书确保信息的来源正确</li>
+</ol>
+<p>ssl&#x2F;tsl工作的流程分成四步</p>
+<ol>
+<li>客户端向服务端发送请求，包括tls版本，随机数</li>
+<li>服务端向客户端发送请求， 包括加密算法，tls版本，随机数，证书等信息</li>
+<li>客户端验证服务端身份，生成预主密钥，然后通过服务端的公钥进行加密，然后发送给服务端，</li>
+<li>双方通过预主密钥和随机数生成共享密钥，然后通过共享密钥加密信息</li>
+</ol>
+<h2 id="DNS协议"><a href="#DNS协议" class="headerlink" title="DNS协议"></a>DNS协议</h2><p>dns协议是应用层的域名解析协议，将域名解析成ip地址，使用的是udp协议。<br>dns主要通过向dns服务器发送请求解析域名，dns服务器分成根，顶级，权威，本地域名服务器，有迭代和递归两种方式。<br>递归方式是被请求的域名服务器向上一级服务器发送请求，最后将结果返回给本地<br>迭代方式是被请求的域名服务器将需要进一步查询的服务器地址发送给本地，由本地继续发送请求</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>计网总结</p><p><a href="https://llbjie.github.io/posts/f3d4e33a.html">https://llbjie.github.io/posts/f3d4e33a.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lbj</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-03-27</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-04-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">linux</a><a class="link-muted mr-2" rel="tag" href="/tags/tcp/">tcp</a><a class="link-muted mr-2" rel="tag" href="/tags/ip/">ip</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/c4f34a4d.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">mit6.1810学习笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/98e6f621.html"><span class="level-item">面经</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="llbjie/llbjie.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#IP-协议"><span class="level-left"><span class="level-item">1</span><span class="level-item">IP 协议</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#头部格式"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">头部格式</span></span></a></li></ul></li><li><a class="level is-mobile" href="#TCP-协议"><span class="level-left"><span class="level-item">2</span><span class="level-item">TCP 协议</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#简单描述一下什么是TCP协议"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">简单描述一下什么是TCP协议</span></span></a></li><li><a class="level is-mobile" href="#头部格式-1"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">头部格式</span></span></a></li><li><a class="level is-mobile" href="#服务端最大tcp连接数是多少"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">服务端最大tcp连接数是多少</span></span></a></li><li><a class="level is-mobile" href="#TCP和UDP的区别，各自的应用场景"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">TCP和UDP的区别，各自的应用场景</span></span></a></li><li><a class="level is-mobile" href="#使用那些信息唯一确定一个连接-确定一个socket"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">使用那些信息唯一确定一个连接/确定一个socket</span></span></a></li><li><a class="level is-mobile" href="#多个-TCP-服务进程可以同时绑定同一个端口吗？"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">多个 TCP 服务进程可以同时绑定同一个端口吗？</span></span></a></li><li><a class="level is-mobile" href="#重启-TCP-服务进程时，为什么会出现“Address-in-use”的报错信息？又该怎么避免？"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">重启 TCP 服务进程时，为什么会出现“Address in use”的报错信息？又该怎么避免？</span></span></a></li><li><a class="level is-mobile" href="#Time-wait状态过多是什么原因，怎么处理"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">Time_wait状态过多是什么原因，怎么处理</span></span></a></li><li><a class="level is-mobile" href="#TCP-三次握手的过程"><span class="level-left"><span class="level-item">2.9</span><span class="level-item">TCP 三次握手的过程</span></span></a></li><li><a class="level is-mobile" href="#为什么是三次连接而不是二次-四次"><span class="level-left"><span class="level-item">2.10</span><span class="level-item">为什么是三次连接而不是二次/四次</span></span></a></li><li><a class="level is-mobile" href="#四次挥手的过程"><span class="level-left"><span class="level-item">2.11</span><span class="level-item">四次挥手的过程</span></span></a></li><li><a class="level is-mobile" href="#为什么需要-【time-wait】状态"><span class="level-left"><span class="level-item">2.12</span><span class="level-item">为什么需要 【time_wait】状态</span></span></a></li></ul></li><li><a class="level is-mobile" href="#网络相关的命令"><span class="level-left"><span class="level-item">3</span><span class="level-item">网络相关的命令</span></span></a></li><li><a class="level is-mobile" href="#socket-编程"><span class="level-left"><span class="level-item">4</span><span class="level-item">socket 编程</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#close-int-fd"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">close(int fd)</span></span></a></li><li><a class="level is-mobile" href="#shutdown-int-fd-int-how"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">shutdown(int fd, int how)</span></span></a></li><li><a class="level is-mobile" href="#int-socket-int-domain-int-type-int-protocol"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">int socket(int domain, int type, int protocol)</span></span></a></li><li><a class="level is-mobile" href="#socket选项"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">socket选项</span></span></a></li><li><a class="level is-mobile" href="#半连接-全连接队列是什么"><span class="level-left"><span class="level-item">4.5</span><span class="level-item">半连接/全连接队列是什么</span></span></a></li></ul></li><li><a class="level is-mobile" href="#FTP协议"><span class="level-left"><span class="level-item">5</span><span class="level-item">FTP协议</span></span></a></li><li><a class="level is-mobile" href="#SMTP-协议"><span class="level-left"><span class="level-item">6</span><span class="level-item">SMTP 协议</span></span></a></li><li><a class="level is-mobile" href="#SSL-TLS-协议"><span class="level-left"><span class="level-item">7</span><span class="level-item">SSL/TLS 协议</span></span></a></li><li><a class="level is-mobile" href="#DNS协议"><span class="level-left"><span class="level-item">8</span><span class="level-item">DNS协议</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">lbj&#039;s Blog</a><p class="is-size-7"><span>&copy; 2026 lbj</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

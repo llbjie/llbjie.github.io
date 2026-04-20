@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>论文「The UNIX Time-Sharing System」阅读 - lbj&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lbj&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lbj&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="论文「The UNIX Time-Sharing System」翻译及阅读笔记"><meta property="og:type" content="blog"><meta property="og:title" content="论文「The UNIX Time-Sharing System」阅读"><meta property="og:url" content="https://llbjie.github.io/posts/da14ed4d.html"><meta property="og:site_name" content="lbj&#039;s Blog"><meta property="og:description" content="论文「The UNIX Time-Sharing System」翻译及阅读笔记"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://llbjie.github.io/img/og_image.png"><meta property="article:published_time" content="2026-04-02T05:29:39.000Z"><meta property="article:modified_time" content="2026-04-20T02:26:05.383Z"><meta property="article:author" content="lbj"><meta property="article:tag" content="操作系统"><meta property="article:tag" content="linux"><meta property="article:tag" content="论文"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llbjie.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llbjie.github.io/posts/da14ed4d.html"},"headline":"论文「The UNIX Time-Sharing System」阅读","image":["https://llbjie.github.io/img/og_image.png"],"datePublished":"2026-04-02T05:29:39.000Z","dateModified":"2026-04-20T02:26:05.383Z","author":{"@type":"Person","name":"lbj"},"publisher":{"@type":"Organization","name":"lbj's Blog","logo":{"@type":"ImageObject","url":{"text":"lbj's Blog"}}},"description":"论文「The UNIX Time-Sharing System」翻译及阅读笔记"}</script><link rel="canonical" href="https://llbjie.github.io/posts/da14ed4d.html"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">lbj&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-lightbulb" id="night-icon"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-04-02T05:29:39.000Z" title="4/2/2026, 1:29:39 PM">2026-04-02</time>发表</span><span class="level-item"><time dateTime="2026-04-20T02:26:05.383Z" title="4/20/2026, 10:26:05 AM">2026-04-20</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span><span class="level-item">1 小时读完 (大约11631个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">论文「The UNIX Time-Sharing System」阅读</h1><div class="content"><p>论文「The UNIX Time-Sharing System」翻译及阅读笔记</p>
+<span id="more"></span>
+
+<h2 id="ABSTRACT-摘要"><a href="#ABSTRACT-摘要" class="headerlink" title="ABSTRACT 摘要"></a>ABSTRACT 摘要</h2><p>UNIX 是一个通用的，多用户的，交互性的操作系统，适用于”larger Digital Equipment Corporation，美国数字设备公司”PDP-11和 “Interdata” 8&#x2F;32电脑。它提供了一些即使是在大型操作系统上也很少发现的特性，包括：</p>
+<ol>
+<li>一种包含可拆卸卷的分层文件系统</li>
+<li>兼容文件、设备和进程间I&#x2F;O</li>
+<li>具备启动异步进程的能力</li>
+<li>可基于每位用户选择的系统命令语言</li>
+<li>包含超过100个子系统，涵盖几十种编程语言</li>
+<li>高移植性</li>
+</ol>
+<p>这篇文章讨论了这些特性、文件系统、用户命令接口的实现</p>
+<h2 id="INTRODUCTION-引言"><a href="#INTRODUCTION-引言" class="headerlink" title="INTRODUCTION 引言"></a>INTRODUCTION 引言</h2><p>现在（指论文发表的时间）有四种版本的 UNIX 分式系统：</p>
+<ol>
+<li>跑在 PDP-7 和 PDP-9 计算机</li>
+<li>PDP-11&#x2F;20 计算机，无内存保护机制</li>
+<li>多道程序设计, 可运行于PDP-11&#x2F;34、&#x2F;40、&#x2F;45、&#x2F;70型计算机</li>
+<li>PDP-11&#x2F;70、Interdata 8&#x2F;32计算机,也就是本文描述的系统</li>
+</ol>
+<h2 id="HARDWARE-AND-SOFTWARE-ENVIRONMENT-软件和硬件环境"><a href="#HARDWARE-AND-SOFTWARE-ENVIRONMENT-软件和硬件环境" class="headerlink" title="HARDWARE AND SOFTWARE ENVIRONMENT 软件和硬件环境"></a>HARDWARE AND SOFTWARE ENVIRONMENT 软件和硬件环境</h2><p>安装研究用 UNIX 系统的PDP-11&#x2F;70是一台16位字长（8位字节）计算机，配备768字节核心内存；系统内核约占90字节，其中代码和数据表各占约一半空间。然而，本系统包含大量设备驱动程序，并为I&#x2F;O缓冲区和系统表分配了充裕空间；能够运行前述软件的最小化系统，整体仅需96K字节核心内存。实际也存在规模更大的安装配置，例如PWB&#x2F;UNIX系统（见文献45）。同时亦有更精简的系统版本，尽管功能存在一定限制（参见文献6）。</p>
+<h2 id="THE-FILE-SYSTEM-文件系统"><a href="#THE-FILE-SYSTEM-文件系统" class="headerlink" title="THE FILE SYSTEM 文件系统"></a>THE FILE SYSTEM 文件系统</h2><p>操作系统最重要的功能是提供一个文件系统，从用户的角度来说，有三种文件：</p>
+<ol>
+<li>普通磁盘文件</li>
+<li>目录</li>
+<li>特殊文件</li>
+</ol>
+<h3 id="普通文件"><a href="#普通文件" class="headerlink" title="普通文件"></a>普通文件</h3><p>文件可包含用户存储的任何信息，例如符号程序或二进制（目标）程序。<br><strong>系统不对其内部结构作特定预设</strong>。文本文件仅由字符串构成，各行之间以换行符分隔。二进制程序则是按程序执行时在核心内存中的呈现形式排列的字符序列。<br>文件的结构始终由使用它的程序控制，而非由操作系统本身规定。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>目录实现了文件名与文件实体之间的映射关系，从而构建了文件系统的整体架构。<br>目录在功能上完全等同于普通文件，唯一区别在于非特权程序无法对其执行写操作——这意味着系统始终掌控着目录的内容。但任何获得适当权限的用户都能像读取普通文件一样读取目录信息。</p>
+<p>系统维护着若干个供其自身使用的目录</p>
+<ol>
+<li>根目录（root directory， 这里指的是 ‘&#x2F;‘目录）。系统中的所有文件均可通过沿着一连串目录追踪路径直至找到目标文件的方式来定位，此类搜索通常以根目录为起点。</li>
+<li>其他系统目录则存放了所有供通用目的使用的程序，即所有的命令（这里指的是&#x2F;bin目录）。然而程序并非必须驻留在这些目录中才能被执行。</li>
+</ol>
+<p>检索文件的方式：</p>
+<ol>
+<li>绝对路径，从’&#x2F;‘开始，从根目录开始搜索文件</li>
+<li>相对路径，不以’&#x2F;‘开始，表示从当前目录开始搜索文件</li>
+</ol>
+<p>同一个非目录文件可以在多个目录下出现，且可能使用不同的名称。这一特性称为<strong>链接</strong>；<br>UNIX系统与其他允许链接的系统不同之处在于，文件的所有链接都具有同等地位。也就是说，文件并非存在于某个特定目录之内；文件的目录项仅包含其名称以及一个指向实际描述该文件信息的指针。因此，文件独立于任何目录项而存在，尽管在实际操作中，当文件的最后一个链接被删除时，该文件也会随之消失。</p>
+<p>每个目录至少包含两个条目。</p>
+<ol>
+<li>“.” 总是指向该目录自身。</li>
+<li>“..” 指向当前目录的父目录。</li>
+</ol>
+<p>除特殊条目”.”和”..”外，每个目录必须且仅能作为一项出现在另一个目录（其父目录）中。<br>这样设计的原因是为了简化遍历目录结构子树的程序编写，更重要的是为了避免层次结构的部分脱离。如果允许对目录进行任意链接，将很难检测根目录到某个目录的最后一条连接何时被切断。</p>
+<h3 id="特殊文件"><a href="#特殊文件" class="headerlink" title="特殊文件"></a>特殊文件</h3><p>UNIX中的每个支持的I&#x2F;O设备至少被关联一个特殊文件，特殊文件和普通文件的读写操作完全相同</p>
+<p>特殊文件的目录项位于 &#x2F;dev 目录中。</p>
+<p>为什么这样处理I&#x2F;O设备：</p>
+<ol>
+<li>文件与设备的I&#x2F;O操作尽可能相似</li>
+<li>文件与设备名称具有相同的语法和含义，因此原本接收文件名作为参数的程序也可以直接传入设备名</li>
+<li>特殊文件与普通文件受相同的保护机制约束</li>
+</ol>
+<h3 id="可拆卸的文件系统"><a href="#可拆卸的文件系统" class="headerlink" title="可拆卸的文件系统"></a>可拆卸的文件系统</h3><p>尽管文件系统的根目录始终存储在同一设备上，但整个文件系统乘车并不全部驻留于此设备。系统提供了带两个参数的系统调用 <code>mount</code>：</p>
+<ol>
+<li>普通文件的名称</li>
+<li>特殊文件的名称，该特殊文件所关联的存储卷（如磁盘组）应具有一个包含自身目录层次结构的独立文件系统</li>
+</ol>
+<p>这个系统调用的作用是，使原本指向该普通文件的引用转而指向可拆卸卷上文件系统的根目录。实际上，<code>mount</code>系统调用是用一颗全新的子树替换了层次树的叶节点（即那个普通文件）</p>
+<p>对不同设备上的文件采取相同处理的原则有一个例外：<strong>不允许在不同文件系统层次结构之间创建链接</strong>。强制执行此限制是为了避免繁琐的记录工作，否则在卸载可拆卸卷时需要确保移除这些链接</p>
+<h3 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h3><p>系统中每个用户被分配了一个唯一用户标识号（unique user identification number）。<br>创建文件时，会表示文件所有者的用户ID,同时，新文件还会获得一组共十个保护位。其中九位分别独立指定 文件所有者、所属组内其他成员以及所有其他用户对该文件的读、写和执行权限。</p>
+<p>若第十位置位，则当该文件作为程序执行时，系统会将当前用户ID临时更改为文件创建者的用户ID。</p>
+<p>这种用户ID的变更仅在执行调用该功能的程序期间有效。设置用户ID特性使得特权程序能够访问其他用户无法访问的文件。</p>
+<p>例如，某个程序可能维护一个记账文件，该文件除了程序自身外不应被读取或修改。如果该程序的设置用户ID位被置位，它就能访问此文件，即使该程序用户调用的其他程序可能被禁止此访问。由于任何程序调用者的实际用户ID始终可被获取，设置用户ID的程序可以采取任何所需措施来验证调用者的凭据。此机制用于允许用户执行经过精心编写的命令，这些命令可调用特权系统入口。</p>
+<p>例如，存在一个仅可由“超级用户”（见下文）调用的系统入口，用于创建空目录。如上所述，目录应包含“.”和“..”条目。创建目录的命令归超级用户所有，并且其设置用户ID位被置位。在验证调用者具有创建指定目录的授权后，它将创建目录并建立“.”和“..”条目。</p>
+<p>由于任何用户都可以在自己的文件上设置用户ID位，此机制通常无需管理员干预即可使用。例如，此保护方案轻松解决了“Aleph-null”提出的MOO记账问题。</p>
+<p>系统将一个特定用户ID（即“超级用户”的ID）识别为不受常规文件访问限制的特例；因此，可以编写程序来转储和恢复文件系统，而不会受到保护系统的意外干扰。</p>
+<h3 id="I-O-调用"><a href="#I-O-调用" class="headerlink" title="I&#x2F;O 调用"></a>I&#x2F;O 调用</h3><p>系统调用执行I&#x2F;O的设计旨在消除不同设备和访问方式之间的差异。系统中不存在“随机”与“顺序”I&#x2F;O的区别，也没有强制规定任何逻辑记录大小。普通文件的大小由写入其中的字节数决定，无需也无法预先确定文件的大小。</p>
+<p>为阐明I&#x2F;O的基本原理，以下以一种匿名语言简要总结部分基础系统调用，该方式可体现必要参数而避免涉及底层复杂性。请注意，每次系统调用都可能返回错误，为简洁起见，调用序列中未体现错误处理机制。</p>
+<p>文件系统不维护用户可见的锁，也不限制可同时打开同一文件进行读写的用户数量（但是用户可打开的文件数量是有限的）。<br>但是，系统内部设有充分的互锁机制，确保当两个用户同时进行如写入同一文件、在同一目录创建文件或删除彼此已打开文件等操作时，文件系统的逻辑一致性得以维持。</p>
+<p>有下面几种系统调用：</p>
+<ul>
+<li>打开文件，<code>open</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filep = open(name, flag)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* name : 文件的名字</span></span><br><span class="line"><span class="comment">* flag : 表明文件是被读，被写，还是更新</span></span><br><span class="line"><span class="comment">* filp : 文件描述符，是数字标识</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建一个新文件或重写旧文件，<code>create</code></li>
+<li>读&#x2F;写文件，<code>read</code>、<code>write</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n = read ( filep, buffer, count )</span><br><span class="line">n = write ( filep, buffer, count )</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* count : filep指定的文件和buffer指定的字节数组最多传输count字节</span></span><br><span class="line"><span class="comment">* n     : 实际传输的字节数</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>随机访问，<code>lseek</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">off_t</span> <span class="title function_">lseek</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> offset, <span class="type">int</span> whence)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* fd     : 文件描述符</span></span><br><span class="line"><span class="comment">* base   : 从哪里开始移动，包括，SEEK_SET、SEEK_CUR、SEEK_END</span></span><br><span class="line"><span class="comment">* offset : 偏移量</span></span><br><span class="line"><span class="comment">* off_t  : 指针移动后距离文件开头的实际偏移量</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="IMPLEMENTATION-OF-THE-FILE-SYSTEM-文件系统的实现"><a href="#IMPLEMENTATION-OF-THE-FILE-SYSTEM-文件系统的实现" class="headerlink" title="IMPLEMENTATION OF THE FILE SYSTEM 文件系统的实现"></a>IMPLEMENTATION OF THE FILE SYSTEM 文件系统的实现</h2><h3 id="i-node：存储文件的信息"><a href="#i-node：存储文件的信息" class="headerlink" title="i-node：存储文件的信息"></a><code>i-node</code>：存储文件的信息</h3><p>目录项仅包含关联文件的名称和一个指向文件本身的指针。该指针是整数，称为文件的<code>i-number</code>(索引编号)。当访问文件时，<code>i-number</code>被作为系统表（即<code>i-list</code>）的索引，该表存储在目录所在设备的已知区域。通过索引找到的条目（即该文件的<code>i-node</code>, 索引节点）包含了对该文件的描述</p>
+<ul>
+<li>文件所有者的用户ID和组ID</li>
+<li>保护位（访问权限）</li>
+<li>文件内容的物理磁盘或磁带地址</li>
+<li>文件大小</li>
+<li>创建时间、最后访问时间、最后修改时间</li>
+<li>文件的链接数，即该文件在目录中出现的次数</li>
+<li>标识文件类型的代码：目录、普通文件或特殊文件</li>
+</ul>
+<h3 id="文件操作与-i-node-机制"><a href="#文件操作与-i-node-机制" class="headerlink" title="文件操作与 i-node 机制"></a>文件操作与 i-node 机制</h3><p><code>open</code>或<code>create</code>系统调用的目的是通过搜索显式或隐式指定的目录，将用户提供的路径名转换为 <code>i-node</code>编号（索引节点编号）。</p>
+<p>文件一旦被打开，其设备号、i-node编号及读&#x2F;写指针会被存储在系统表中，该表通过调用返回的文件描述符进行索引。因此，在后续调用 read 或 write 时，可以轻松地通过文件描述符获取访问文件所需的信息。</p>
+<p>当创建一个新文件时，系统会为其分配一个 i-node，并创建一个包含文件名和 i-node 编号的目录项（directory entry）。为现有文件创建链接（link）涉及创建一个具有新名称的目录项，复制原始文件的 i-node 编号，并递增该 i-node 的链接计数（link-count）字段。删除文件是通过递减其目录项指定的 i-node 链接计数并抹除该目录项来完成的。如果链接计数降至 0，则该文件占用的所有磁盘块都会被释放，且该 i-node 会被重新分配（注：即撤销分配）。</p>
+<h3 id="寻址架构与文件大小"><a href="#寻址架构与文件大小" class="headerlink" title="寻址架构与文件大小"></a>寻址架构与文件大小</h3><p>包含文件系统的所有磁盘空间都被划分为若干个 512 字节的块，逻辑地址从 0 开始，上限取决于设备容量。每个文件的 i-node 空间可容纳 13 个设备地址。对于普通文件，</p>
+<ul>
+<li>前 10 个地址直接指向文件的前 10 个块。</li>
+<li>如果文件超过 10 块，第 11 个地址指向一个一级间接块（indirect block），该块包含多达 128 个指向文件后续块的地址。</li>
+<li>更大的文件使用第 12 个地址指向一个二级间接块，该块指向 128 个一级间接块。</li>
+<li>如有需要，第 13 个地址则作为三级间接块。</li>
+</ul>
+<p>据此，文件在概念上最大可达 $[(10 + 128 + 128^2 + 128^3) \times 512]$ 字节。文件打开后：读取 5120 字节以内的内容只需一次磁盘访问；5120 至 70,656 字节范围需两次访问；70,656 至 8,459,264 字节范围需三次访问；从此范围到最大文件容量（1,082,201,088 字节）则需四次访问。<br>在实践中，设备缓存机制能有效消除大部分间接读取开销。</p>
+<p>实际上，设备缓存机制（见下文）能有效消除大部分间接寻址访问。</p>
+<h3 id="特殊文件与挂载（Mount）"><a href="#特殊文件与挂载（Mount）" class="headerlink" title="特殊文件与挂载（Mount）"></a>特殊文件与挂载（Mount）</h3><p>以上讨论适用于普通文件。当对某个文件发起I&#x2F;O请求，而其i-node指示其为特殊文件时，最后12个设备地址字无意义，第一个地址字指定一个内部设备名，该名称被解析为一对数字，分别表示设备类型和子设备号。设备类型决定由哪个系统例程处理该设备的I&#x2F;O；子设备号则用于选择具体设备，例如连接至特定控制器的某个磁盘驱动器，或若干相似终端接口中的某一个。</p>
+<p>在这种环境下，mount 系统调用（第3.4节）的实现相当直接。mount 维护了一个系统表，其键是挂载时指定的普通文件的 i-number 和设备名，对应的值是指定的特殊文件的设备名。在 open 或 create 操作中扫描路径名时，每当遇到一个 i-number&#x2F;设备对，就会搜索此表；如果找到匹配项，该 i-number 会被替换为被挂载文件系统根目录的 i-number，设备名则被替换为表中的对应值。</p>
+<h3 id="缓存与-I-O-效率"><a href="#缓存与-I-O-效率" class="headerlink" title="缓存与 I&#x2F;O 效率"></a>缓存与 I&#x2F;O 效率</h3><p>对用户而言，文件的读写似乎是同步且无缓冲的：read 调用返回后数据立即生效，write 返回后用户空间即可重用。实际上，系统维护了一套相当复杂的缓冲机制。</p>
+<p>写操作： 即使只写一个字节，系统也会检查受影响的磁盘块是否已在主存缓冲区中；若不在，则从设备读入。修改该字节后，该块被标记为待写入。此时 write 即可返回，实际的 I&#x2F;O 可能会推迟完成。</p>
+<p>读操作： 同理，读取单字节时若块已在缓冲区则立即返回；否则读入缓冲区后再提取。</p>
+<p>系统能识别程序对文件的顺序访问，并异步地预读（pre-read）下一块，这显著降低了运行时间。以 512 字节为单位进行读写的程序比逐字节读写的程序更有优势，但这主要是因为减少了系统调用开销（System Overhead）。</p>
+<h3 id="i-list"><a href="#i-list" class="headerlink" title="i-list"></a>i-list</h3><p>i-list 的概念是 UNIX 的一个独有特点。实践证明，这种组织文件系统的方法非常可靠且易于管理。对系统本身而言，它的一个优势在于每个文件都有一个简短、明确的名称，并以简单的方式与访问该文件所需的保护、寻址等信息相关联。同时，它也允许采用一种相当简单且快速的算法来检查文件系统的一致性，例如验证设备上包含有用信息的区域与可被分配的空闲区域是互不相交的，且共同覆盖整个设备空间。该算法独立于目录层次结构，因为它只需要扫描线性组织的 i-list。与此同时，i-list 的概念也带来了一些其他文件系统组织方式中没有的特殊性。例如，应由谁来承担文件占用空间的费用，因为一个文件的所有目录条目都具有同等地位。向文件所有者收费通常并不公平，因为一个用户可能创建了文件，另一个用户可能链接到它，而第一个用户又可能删除该文件。第一个用户仍然是文件的所有者，但费用却应向第二个用户收取。最合理的公平算法似乎是将费用平均分摊给所有链接到该文件的用户。许多安装环境通过完全不收取任何费用来回避这个问题。</p>
+<h2 id="PROCESSES-AND-IMAGES-进程与映像"><a href="#PROCESSES-AND-IMAGES-进程与映像" class="headerlink" title="PROCESSES AND IMAGES 进程与映像"></a>PROCESSES AND IMAGES 进程与映像</h2><p>映像(Image)是一个计算机执行环境。它包含内存映像、通用寄存器值、打开文件的状态、当前目录等。映像是一个“伪计算机”的当前状态。</p>
+<p>进程（Process）是映像的一次执行过程。当处理器代表某个进程执行时，其映像必须驻留在主存中；在其他进程执行期间，该映像仍保留在主存中，除非出现更高级别的活跃进程，迫使其被交换（Swap）到磁盘上。</p>
+<p>映像的用户内存部分分为三个逻辑段：</p>
+<ul>
+<li>程序正文段（Program Text Segment）： 从虚拟地址空间的地址 0 开始。在执行期间，该段受写保护，且在所有执行同一程序的进程之间共享同一个副本。</li>
+<li>数据段（Data Segment）： 位于虚拟地址空间中程序正文段上方的第一个硬件保护字节边界处。该段是非共享且可写的，其大小可以通过系统调用进行扩展。</li>
+<li>栈段（Stack Segment）： 从虚拟地址空间的最高地址开始。随着栈指针的波动，该段会自动向下增长。</li>
+</ul>
+<h3 id="Processes-进程"><a href="#Processes-进程" class="headerlink" title="Processes 进程"></a>Processes 进程</h3><p>出了系统正在引导(bootstrapping)自身运行的特殊情况外，新进程只能通过调用<code>fork</code>系统调用产生:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">processid = fork()</span><br></pre></td></tr></table></figure>
+
+<p>当<code>fork</code>执行时，进程分裂成两个独立执行的进程。这两个进程拥有原始内存映像的独立副本，并共享所有打开的文件。这两个新进程的唯一区别在于其中一个被视为父进程：在父进程中，返回的 processid 实际上标识了子进程且绝不为 0；而在子进程中，返回的值始终为 0。</p>
+<p>由于 <code>fork</code> 在父进程和子进程中返回的值是可区分的，因此每个进程都可以判定自己是父进程还是子进程。</p>
+<blockquote>
+<p>bootstrapping<br>  是指计算机从断电状态（冷启动）或重置状态（热启动）到操作系统完全加载并运行的过程。硬件设计者在主板的非易失性存储器（如 ROM 或 Flash）中固化了一小段代码。这段代码必须极度精简，其唯一的使命就是：寻找并加载一个稍微大一点的程序，而那个程序再去加载操作系统。</p>
+</blockquote>
+<blockquote>
+<p>操作系统的启动过程：</p>
+<ol>
+<li>硬件自检查，执行存储在主板 ROM 中的 BIOS（基本输入输出系统）或 UEFI（统一可扩展固件接口）。识别可启动设备（硬盘，U盘，网络等）</li>
+<li>BIOS&#x2F;UEFI 会读取可启动设备上起始位置的一个特殊扇区<ul>
+<li>MBR：传统方式下， BIOS会读取磁盘的第一个512字节块，包含一小段引导代码和分区表</li>
+<li>EFI系统分区：在现代 UEFI 系统中，固件直接识别 FAT32 分区并运行其中的 <code>.efi</code> 文件</li>
+</ul>
+</li>
+<li>引导加载程序(bootloader),由于512字节空间太小，无法装下复杂的内核，因此 MBR 中的代码通常只负责加载 <strong>二级引导加载程序</strong><br>功能：提供启动菜单，让用户选择操作系统；加载内核镜像到内存中</li>
+<li>内核初始化，内核接管了计算机的控制权，开始执行以下操作：<ul>
+<li>建立页表：初始化内存管理单元(MMU)以支持虚拟内存</li>
+<li>驱动加载：识别并初始化核心硬件驱动程序</li>
+<li>挂载根文件系统：找到包含操作系统文件的磁盘分区</li>
+</ul>
+</li>
+<li>创建第一个进程<ul>
+<li>内核在用户空间启动第一个进程。在类 Unix 系统中，这个进程通常被称为 <code>init</code> 或 <code>systemd</code></li>
+<li>这个进程随后会派生 <code>fork</code> 出所有其它系统服务(如登录界面、网络服务、图形界面)</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>总结 ：BIOS 找到 引导加载程序，引导程序负责将 内核 装入内存并启动；内核随后通过 挂载根文件系统 唤醒整个 操作系统</p>
+</blockquote>
+<h3 id="Pipes-管道"><a href="#Pipes-管道" class="headerlink" title="Pipes 管道"></a>Pipes 管道</h3><p>进程可以使用与文件系统I&#x2F;O相同的系统调用 (<code>read</code>和<code>write</code>)与相关进程进行通信。调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filep = pipe()</span><br></pre></td></tr></table></figure>
+<p>将返回一个文件描述符 <code>filep</code>，并创建一个称为管道（pipe）的进程间通道。</p>
+<p>与其他打开的文件一样，该通道通过 <code>fork</code> 调用在映像中从父进程传递给子进程。使用管道文件描述符进行的读取操作会一直等待，直到另一个进程使用同一管道的文件描述符进行写入。此时，数据在两个进程的映像之间传递。任何一个进程都不需要知道涉及的是管道而非普通文件。</p>
+<p>尽管通过管道进行的进程间通信是一种非常有价值的工具（见 6.2 节），但它并非一种完全通用的机制，因为管道必须由相关进程的共同祖先建立。</p>
+<h3 id="Execution-of-programs-程序的执行"><a href="#Execution-of-programs-程序的执行" class="headerlink" title="Execution of programs 程序的执行"></a>Execution of programs 程序的执行</h3><p>另一个主要的系统原语（primitive）是通过以下方式调用的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execute ( file, arg1, arg2, ..., argn )</span><br></pre></td></tr></table></figure>
+<p>该调用请求系统读入并执行由 <code>file</code> 命名的程序，并将字符串参数 <code>arg1, arg2, ..., argn</code> 传递给它。</p>
+<p>调用 <code>execute</code> 的进程中，所有的代码和数据都会被该文件中的内容替换，<strong>但已打开的文件、当前目录以及进程间关系保持不变</strong>。只有在调用失败时（例如找不到文件，或文件的执行权限位未设置），才会从 <code>execute</code> 原语返回；它类似于机器指令中的<strong>跳转(jump)</strong>，而非子程序调用（subroutine call）。</p>
+<h3 id="Process-synchronization-进程同步"><a href="#Process-synchronization-进程同步" class="headerlink" title="Process synchronization 进程同步"></a>Process synchronization 进程同步</h3><p>另一个进程控制系统调用是：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">processid = wait ( status )</span><br></pre></td></tr></table></figure>
+<p>该调用导致其调用者挂起（暂停）执行，直到其子进程之一完成执行。随后，wait 返回已终止进程的进程 ID（PID）。如果调用进程没有后代进程，则会返回错误。此外，子进程的某些状态信息（status）也可供父进程获取。</p>
+<h3 id="Termination-终止"><a href="#Termination-终止" class="headerlink" title="Termination 终止"></a>Termination 终止</h3><p>最后：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span> ( status )</span><br></pre></td></tr></table></figure>
+<p>该调用会终止一个进程，销毁其映像，关闭其所有打开的文件，并从总体上抹除该进程。父进程会通过 <code>wait</code> 原语得到通知，并且能够获取子进程传回的状态信息。进程也可能由于各种非法操作或用户生成的信号而终止（见下文第 VII 节）。</p>
+<h2 id="THE-SHELL"><a href="#THE-SHELL" class="headerlink" title="THE SHELL"></a>THE SHELL</h2><p>对于大多数用户而言，与系统的通信时借助一个名为 <code>shell</code> 的程序完成的。<code>shell</code> 是一个<strong>命令解释器</strong>：它读取用键入的行，并将其解释为执行其它程序的请求。</p>
+<p>在最简单的形式下，命令行由命令名称及后的参数组成，所有内容均由空格分隔：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span> arg1 arg2 ... argn</span><br></pre></td></tr></table></figure>
+<p><code>shell</code>会将命令名称和参数拆分为独立的字符串。随后，系统会寻找名为 <code>command</code> 的文件；<code>command</code> 可以是包含 <code>/</code> 字符的路径名，用以指定系统中的任何文件。如果找到了该文件，它就会被读入内存并执行。由 <code>shell</code> 收集的参数可供该命令访问。当命令执行完毕后，<code>shell</code> 会恢复自身的执行，并通过键入一个提示符（prompt character）表示已准备好接受下一个命令。</p>
+<p>如果找不到 <code>command</code> 文件，<code>shell</code> 通常会给命令加上类似 <code>/bin/</code> 的前缀字符串，并再次尝试寻找该文件。目录 <code>/bin</code> 包含了旨在供通用目的使用的命令。（搜索目录的序列可以根据用户请求进行更改。）</p>
+<h3 id="Standard-I-O-标准输入输出"><a href="#Standard-I-O-标准输入输出" class="headerlink" title="Standard I&#x2F;O 标准输入输出"></a>Standard I&#x2F;O 标准输入输出</h3><p>上文第三节对 I&#x2F;O 的讨论似乎暗示，程序所使用的每一个文件都必须由该程序亲自打开或创建，才能获得该文件的文件描述符。然而，由 <code>Shell</code> 执行的程序在启动时就已经拥有三个打开的文件，其文件描述符分别为 <code>0、1 和 2</code>。</p>
+<p>当此类程序开始执行时，文件描述符 <code>1</code> 已处于打开状态以供写入，将其理解为 <strong>标准输出文件（standard output file）</strong> 最为恰当。除下文指出的情况外，<strong>该文件通常指向用户的终端</strong>。因此，希望输出说明性信息的程序通常使用文件描述符 1。相反，文件描述符 <code>0</code> 在启动时已处于打开状态以供读取，希望读取用户键入信息的程序则读取该文件。</p>
+<p>Shell 能够更改这些文件描述符从用户终端打印机和键盘获取的默认分配。如果命令的一个参数以 “&gt;” 为前缀，那么在命令执行期间，<strong>文件描述符 <code>1</code> 将指向 “&gt;” 之后命名的文件</strong>。例如：</p>
+<p><code>ls</code> 通常会在打字机（终端）上列出当前目录下的文件名。而命令：</p>
+<p><code>ls &gt;there</code>则会创建一个名为 there 的文件，并将列表内容存入其中。因此，参数 &gt;there 的含义是“将输出置于 there 中”。</p>
+<p>另一方面：<code>ed</code>通常会进入编辑器，编辑器通过键盘接收用户的请求。</p>
+<p>而命令：<code>ed &lt;script</code> 将 script 解释为一个包含编辑器命令的文件；因此 <code>&lt;script</code> 意味着“从 script 中获取输入”。</p>
+<p>虽然紧跟在“&lt;”或“&gt;”之后的文件名看起来像是命令的一个参数，但实际上它完全由 Shell 解释，根本不会传递给命令。因此，在每个命令内部无需编写专门的处理 I&#x2F;O 重定向的代码；命令只需在适当的地方使用标准文件描述符 0 和 1 即可。</p>
+<p>文件描述符 2 与文件 1 一样，通常与终端输出流相关联。<strong>当通过 “&gt;” 指定输出重定向请求时，文件 2 仍保持连接在终端上，这样命令产生的诊断信息（错误信息）就不会静默地进入输出文件中。</strong></p>
+<h3 id="Filters-过滤器"><a href="#Filters-过滤器" class="headerlink" title="Filters 过滤器"></a>Filters 过滤器</h3><p>标准 I&#x2F;O 概念的一种扩展被用于将一个命令的输出直接导向另一个命令的输入。由垂直栏（竖线符号）分隔的一系列命令会导致 Shell 同时执行所有命令，并安排将序列中每个命令的标准输出传递给下一个命令的标准输入。因此，在如下命令行中：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> | <span class="built_in">pr</span> -2 | opr</span><br></pre></td></tr></table></figure>
+<p><code>ls</code> 列出当前目录下的文件名；其输出被传递给 <code>pr</code>，后者为输入内容添加带有日期的标题并进行分页（参数 “-2” 请求双栏输出）。同样地，来自 <code>pr</code> 的输出成为 <code>opr</code> 的输入；该命令将其输入缓冲到文件中以便进行脱机打印。</p>
+<p>如果不使用这种方式，该过程也可以更笨拙地执行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> &gt;temp1</span><br><span class="line"><span class="built_in">pr</span> -2 &lt;temp1 &gt;temp2</span><br><span class="line">opr &lt;temp2</span><br><span class="line"><span class="comment"># 随后删除临时文件</span></span><br></pre></td></tr></table></figure>
+<p>在缺乏重定向输出和输入能力的情况下，一种更为笨拙的方法是要求 <code>ls</code> 命令本身能够接受用户请求，对其输出进行分页、以多栏格式打印，并安排将其输出进行脱机交付。实际上，期望像 <code>ls</code> 这样命令的作者去提供如此多种类的输出选项是令人惊讶的，而且出于效率原因，这样做其实是不明智的。</p>
+<p>像 <code>pr</code> 这样将其标准输入复制到标准输出（并进行处理）的程序被称为过滤器（filter）。我们发现一些非常有用的过滤器可以执行字符转换（transliteration）、根据模式筛选行（即正则匹配）、对输入进行排序，以及加密和解密。</p>
+<h3 id="Command-separators-multitasking-命令分隔符；多任务处理"><a href="#Command-separators-multitasking-命令分隔符；多任务处理" class="headerlink" title="Command separators; multitasking 命令分隔符；多任务处理"></a>Command separators; multitasking 命令分隔符；多任务处理</h3><p><code>Shell</code> 提供的另一项功能相对直接。命令无需分行书写，而是可以使用分号进行分隔：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span>; ed</span><br></pre></td></tr></table></figure>
+<p>上述操作将先列出当前目录的内容，随后进入编辑器。</p>
+<p>一项相关的特性则更为有趣：如果命令后跟有“&amp;”符号，Shell 在再次显示提示符之前将不再等待该命令执行完成；相反，它会立即准备好接受新命令。例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">as <span class="built_in">source</span> &gt;output &amp;</span><br></pre></td></tr></table></figure>
+<p>这会导致 source 文件被汇编，且诊断输出导入 output 文件中；无论汇编过程耗时多久，Shell 都会立即返回。当 Shell 不等待命令完成时，会打印运行该命令的进程标识号（PID）。该标识号可用于等待命令完成或将其终止。“&amp;” 符号可以在一行中多次使用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">as <span class="built_in">source</span> &gt;output &amp; <span class="built_in">ls</span> &gt;files &amp;</span><br></pre></td></tr></table></figure>
+<p>上述操作会同时在后台执行汇编和列表操作。在这些示例中，都提供了终端以外的输出文件；如果不这样做，各个命令的输出将会混杂在一起。</p>
+<p>Shell 还允许在上述操作中使用括号。例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( <span class="built_in">date</span>; <span class="built_in">ls</span> ) &gt;x &amp;</span><br></pre></td></tr></table></figure>
+<p>该命令会将当前日期和时间以及当前目录的列表写入文件 x 中。Shell 同样会立即返回以处理另一个请求。</p>
+<h3 id="The-shell-as-a-command-command-files-作为命令的-Shell；命令文件"><a href="#The-shell-as-a-command-command-files-作为命令的-Shell；命令文件" class="headerlink" title="The shell as a command; command files 作为命令的 Shell；命令文件"></a>The shell as a command; command files 作为命令的 Shell；命令文件</h3><p>Shell 本身也是一个命令，并且可以被递归调用。假设名为 tryout 的文件包含以下行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">as <span class="built_in">source</span></span><br><span class="line"><span class="built_in">mv</span> a.out testprog</span><br><span class="line">testprog</span><br></pre></td></tr></table></figure>
+<p>其中 <code>mv</code> 命令会导致文件 a.out 被重命名为 testprog。a.out 是汇编程序的（二进制）输出，已准备好执行。因此，如果上述三行是在键盘上键入的，那么 source 将被汇编，生成的程序重命名为 testprog，随后 testprog 被执行。当这些行存放在 tryout 文件中时，命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh &lt;tryout</span><br></pre></td></tr></table></figure>
+<p>将导致 Shell 程序 sh 按顺序执行这些命令。</p>
+<p>Shell 拥有更强大的功能，包括进行参数替换以及从目录中指定的文件名子集构造参数列表。它还提供了通用的条件分支和循环结构。</p>
+<h3 id="Implementation-of-the-shell-Shell-的实现"><a href="#Implementation-of-the-shell-Shell-的实现" class="headerlink" title="Implementation of the shell Shell 的实现"></a>Implementation of the shell Shell 的实现</h3><p>现在可以理解 Shell 运行的梗概了。大部分时间，Shell 都在等待用户键入命令。当结束该行的换行符被键入时，Shell 的 <code>read</code> 调用返回。Shell 分析命令行，并将参数整理成适合 <code>execute</code> 的形式。随后调用 <code>fork</code>。子进程（其代码当然仍是 Shell 的代码）尝试使用相应的参数执行 <code>execute</code>。如果成功，这将读入并开始执行所给名称的程序。与此同时，由 <code>fork</code> 产生的另一个进程（即父进程）则等待子进程终止。当子进程终止时，Shell 知道命令已执行完毕，于是键入提示符并读取键盘以获取另一个命令。</p>
+<p>在此框架下，后台进程的实现变得易如反掌：每当命令行包含 “&amp;” 时，Shell 仅仅只需不对它为执行命令而创建的进程执行等待（<code>wait</code>）即可。</p>
+<p>令人欣慰的是，所有这些机制都与标准输入输出文件的概念契合得非常完美。当通过 <code>fork</code> 原语创建一个进程时，它不仅继承了父进程的内存映像，还继承了父进程中当前所有打开的文件，包括文件描述符为 0、1 和 2 的文件。当然，Shell 使用这些文件来读取命令行并写入提示符和诊断信息，而在通常情况下，它的子进程——即那些命令程序——会自动继承它们。然而，当给出带有“&lt;”或“&gt;”的参数时，后代进程在执行 <code>execute</code> 之前，会使标准 I&#x2F;O 文件描述符（分别为 0 或 1）指向命名的文件。这很容易实现，因为根据约定，当打开（或创建）一个新文件时，会分配最小的未使用文件描述符；因此只需关闭文件 0（或 1）并打开命名的文件即可。由于运行命令程序的进程在完成后会直接终止，因此在“&lt;”或“&gt;”之后指定的文件与文件描述符 0 或 1 之间的关联会在进程死亡时自动结束。因此，Shell 无需知道其自身标准输入输出文件的实际名称，因为它永远不需要重新打开它们。</p>
+<p>过滤器是标准 I&#x2F;O 重定向的直接扩展，只是使用了管道（pipe）代替文件。</p>
+<p>在通常情况下，Shell 的主循环永远不会终止。（主循环包括 <code>fork</code> 返回中属于父进程的分支；即执行 <code>wait</code> 随后读取另一个命令行的分支。）导致 Shell 终止的唯一情况是在其输入文件中发现了文件结束（EOF）条件。因此，当 Shell 作为一个带有给定输入文件的命令执行时，如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh &lt;comfile</span><br></pre></td></tr></table></figure>
+<p>comfile 中的命令将一直执行，直到到达 comfile 的末尾；随后由 <code>sh</code> 调用的该 Shell 实例将终止。由于这个 Shell 进程是另一个 Shell 实例的子进程，后者执行的 <code>wait</code> 将返回，继而可以处理另一个命令。</p>
+<h3 id="Initialization-初始化"><a href="#Initialization-初始化" class="headerlink" title="Initialization 初始化"></a>Initialization 初始化</h3><p>用户在其上键入命令的 Shell 实例，其本身也是另一个进程的子进程。系统初始化的最后一步是创建一个单一进程，并（通过 <code>execute</code>）调用一个名为 <code>init</code> 的程序。<code>init</code> 的角色是为每个终端通道创建一个进程。<code>init</code> 的各个子实例分别为文件 0、1 和 2 打开相应的终端以进行输入和输出；如有必要，还会在拨号线路上等待载波建立。随后，系统会打印出一条消息，请求用户登录（log in）。</p>
+<p>当用户键入姓名或其他身份标识时，相应的 <code>init</code> 实例会被唤醒，接收登录行并读取密码文件。如果找到了该用户名，且用户能够提供正确的密码，<code>init</code> 就会切换到该用户的默认当前目录，将进程的用户 ID（User ID）设置为该登录者的 ID，并执行 <code>execute</code> 来启动 Shell。至此，Shell 已准备好接收命令，登录协议执行完毕。</p>
+<p>与此同时，<code>init</code> 的主干路径（即后来演变为 Shell 的所有子实例的父进程）会执行 <code>wait</code> 调用。如果其中一个子进程终止——无论是由于 Shell 发现了文件结束符（EOF），还是由于用户键入了错误的姓名或密码——init 的这条主干路径只需简单地重新创建那个已失效的进程，而该进程又会重新打开相应的输入输出文件并打印另一条登录消息。因此，用户只需向 Shell 键入文件结束序列即可实现注销（log out）。</p>
+<h3 id="Other-programs-as-shell-其他程序作为-Shell"><a href="#Other-programs-as-shell-其他程序作为-Shell" class="headerlink" title="Other programs as shell 其他程序作为 Shell"></a>Other programs as shell 其他程序作为 Shell</h3><p>上文所述的 Shell 旨在允许用户完全访问系统的各项设施，因为它能够调用并执行任何具有相应保护模式（权限）的程序。然而，有时我们需要一种不同的系统交互界面，而这一特性很容易实现。</p>
+<p>回想一下，在用户通过提供姓名和密码成功登录后，init 通常会调用 Shell 来解释命令行。用户在密码文件（password file）中的条目可以包含登录后要调用的特定程序名称，以此替代标准 Shell。该程序可以按照其意愿自由地解释用户的消息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/usr/bin/zsh</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">lbj:x:1000:1000:,,,:/home/lbj:/usr/bin/zsh</span><br><span class="line">sshd:x:105:65534::/run/sshd:/usr/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>例如，对于使用秘书编辑系统的用户，其密码文件条目可能会指定使用编辑器 ed 来替代 Shell。这样，当该系统的用户登录时，他们直接处于编辑器内部并可以立即开始工作；同时，这也可以防止他们调用非预期的程序。在实践中，允许从编辑器中“临时逃逸”（temporary escape）以执行格式化程序和其他实用工具已被证明是切实需要的。</p>
+<p>系统上提供的几种游戏（如象棋、二十一点、三维井字棋）展示了一种受到更严格限制的环境。对于这些游戏，密码文件中都存在一个条目，指定调用相应的游戏程序而非 Shell。以这些游戏玩家身份登录的人会发现自己被限制在游戏之内，无法探索 UNIX 系统整体提供的（推测可能更有趣的）功能。</p>
+<h2 id="TRAPS-陷阱"><a href="#TRAPS-陷阱" class="headerlink" title="TRAPS 陷阱"></a>TRAPS 陷阱</h2><p>DP-11 硬件可以检测到许多程序错误，例如引用不存在的内存、执行未实现的指令，以及在需要偶数地址的地方使用了奇数地址。此类错误会导致处理器“陷阱”（trap）到某个系统例程中。除非另有安排，否则非法操作会导致系统终止该进程，并将其映像（image）写入当前目录下的 core 文件中。调试器可用于确定发生故障时程序的执行状态。</p>
+<p>对于那些陷入死循环、产生多余输出或使用户改变主意的程序，可以通过使用中断信号（interrupt signal）将其停止，该信号通过键入“delete”字符生成。除非采取了特殊措施，否则该信号仅会导致程序停止执行，而不产生 core 文件。此外，还有一个退出信号（quit signal）用于强制生成映像文件。因此，非预期循环的程序可以被停止，且无需预先安排即可检查其遗留状态。</p>
+<p>硬件生成的故障以及中断和退出信号，均可根据请求被进程忽略或捕获。例如，Shell 会忽略退出信号（quit），以防止退出信号导致用户注销。编辑器会捕获中断信号并返回到其命令级别。这对于在不丢失正在进行的工作（编辑器操作的是其所编辑文件的副本）的情况下停止长内容的打印输出非常有用。在没有浮点硬件的系统中，未实现的指令会被捕获，并对浮点指令进行软件模拟解释。</p>
+<h2 id="PERSPECTIVE-展望"><a href="#PERSPECTIVE-展望" class="headerlink" title="PERSPECTIVE 展望"></a>PERSPECTIVE 展望</h2><p>或许有些悖论的是，UNIX 系统的成功在很大程度上归功于它并非为了满足任何预定义的目标而设计。当作者之一（Thompson）对当时的计算机设施感到不满，发现了一台极少被使用的 PDP-7，并着手创建一个更舒适（hospitable）的环境时，第一个版本便诞生了。这一（本质上是个人性质的）努力取得了足够的成功，吸引了另一位作者及几位同事的兴趣，并随后促成了对 PDP-11&#x2F;20 的收购，专门用于支持文本编辑和格式化系统。当 11&#x2F;20 也不堪重负时，该系统已证明了其价值，足以说服管理层投资购置 PDP-11&#x2F;45，以及后来的 PDP-11&#x2F;70 和 Interdata 8&#x2F;32 机器，系统在这些机器上发展成了现在的形式。在整个过程中，我们的目标（如果非要阐明的话）始终是建立一种与机器之间舒适的关系，并探索操作系统及其他软件中的理念与发明。我们未曾面临满足他人需求的压力，对于这种自由，我们深表感激。</p>
+<p>回顾过去，有三点考量影响了 UNIX 的设计：</p>
+<ul>
+<li><p>首先：因为我们是程序员，所以很自然地将系统设计得易于编写、测试和运行程序。 我们追求编程便利性的最重要的表现是系统被安排为交互式使用，尽管原始版本仅支持单用户。我们相信，一个设计良好的交互式系统比“批处理”系统更高效、使用起来更令人愉悦。此外，此类系统很容易适配非交互式用途，而反之则不然。</p>
+</li>
+<li><p>其次：系统及其软件始终受到相当严格的尺寸限制。 鉴于在合理的效率与表达能力之间存在部分对立的欲望，尺寸限制不仅鼓励了精简，还促成了某种设计的优雅。这可能是“苦难成就救赎”哲学的一个隐蔽版本，但在我们的案例中，它奏效了。</p>
+</li>
+<li><p>第三：几乎从一开始，系统就能做到并确实在进行“自我维护”。 这一事实比表面看起来更重要。如果系统的设计者被迫使用该系统，他们会迅速察觉到其功能和表面的缺陷，并有强烈的动力在为时已晚之前纠正它们。由于所有的源程序始终可用且易于在线修改，当新想法被发明、发现或由他人建议时，我们愿意修订并重写系统及其软件。</p>
+</li>
+</ul>
+<p>本文讨论的 UNIX 各个方面清晰地展示了至少前两项设计考量。例如，从编程角度来看，文件系统的接口极其便利。最低限度的接口层旨在消除各种设备与文件之间、以及直接访问与顺序访问之间的区别。程序员无需庞大的“访问方法”例程来与系统调用隔离开；事实上，所有用户程序要么直接调用系统，要么使用一个不到一页纸长的微型库程序，该程序负责缓冲若干字符并一次性读写。</p>
+<p>编程便利性的另一个重要方面是不存在复杂的“控制块”结构（即文件系统或其他系统调用所依赖或维护的部分结构）。通常来说，程序地址空间的内容属于程序所有，我们尽量避免对该地址空间内的数据结构设置限制。</p>
+<p>鉴于所有程序都应能使用任何文件或设备作为输入或输出的要求，将设备相关性推入操作系统内部也是明智的。唯一的替代方案要么是在所有程序中加载处理每个设备的例程（这会消耗大量空间），要么依赖某种在实际需要时动态链接到对应设备例程的手段（这在系统开销或硬件上都很昂贵）。</p>
+<p>同样，进程控制方案和命令行接口已被证明既方便又高效。由于 Shell 作为一个普通的、可交换（swappable）的用户程序运行，它在系统内核中不占用任何“常驻”空间，并且可以以极低的成本实现极其强大的功能。特别是在 Shell 作为一个产生其他进程来执行命令的进程框架下，I&#x2F;O 重定向、后台进程、命令文件以及用户可选的系统接口这些概念在实现上都变得本质上非常简单（trivial）。</p>
+<h2 id="INFLUENCES-灵感来源"><a href="#INFLUENCES-灵感来源" class="headerlink" title="INFLUENCES 灵感来源"></a>INFLUENCES 灵感来源</h2><p>UNIX 的成功与其说在于全新的发明，不如说在于对一组精心挑选的、富有生命力的思想进行了充分挖掘。特别地，它证明了这些思想是实现一个虽小巧却强大的操作系统的关键。</p>
+<p>我们所实现的 fork 操作，其本质在 GENIE 分时系统中就已经存在。在许多方面，我们受到了 Multics 的影响：它启发了 I&#x2F;O 系统调用的特定形式，以及 “Shell” 的名称及其通用功能。Shell 应该为每个命令创建一个进程的理念，也是由 Multics 的早期设计启发而来的，尽管在那个系统中，后来出于效率原因放弃了这一做法。类似的方案在 TENEX 系统中也有所应用。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>论文「The UNIX Time-Sharing System」阅读</p><p><a href="https://llbjie.github.io/posts/da14ed4d.html">https://llbjie.github.io/posts/da14ed4d.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lbj</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-04-02</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-04-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">linux</a><a class="link-muted mr-2" rel="tag" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/280d6817.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">「学会提问」阅读笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/5ef26427.html"><span class="level-item">莎士比亚全集第九册阅读笔记</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="llbjie/llbjie.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#ABSTRACT-摘要"><span class="level-left"><span class="level-item">1</span><span class="level-item">ABSTRACT 摘要</span></span></a></li><li><a class="level is-mobile" href="#INTRODUCTION-引言"><span class="level-left"><span class="level-item">2</span><span class="level-item">INTRODUCTION 引言</span></span></a></li><li><a class="level is-mobile" href="#HARDWARE-AND-SOFTWARE-ENVIRONMENT-软件和硬件环境"><span class="level-left"><span class="level-item">3</span><span class="level-item">HARDWARE AND SOFTWARE ENVIRONMENT 软件和硬件环境</span></span></a></li><li><a class="level is-mobile" href="#THE-FILE-SYSTEM-文件系统"><span class="level-left"><span class="level-item">4</span><span class="level-item">THE FILE SYSTEM 文件系统</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#普通文件"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">普通文件</span></span></a></li><li><a class="level is-mobile" href="#目录"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">目录</span></span></a></li><li><a class="level is-mobile" href="#特殊文件"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">特殊文件</span></span></a></li><li><a class="level is-mobile" href="#可拆卸的文件系统"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">可拆卸的文件系统</span></span></a></li><li><a class="level is-mobile" href="#保护"><span class="level-left"><span class="level-item">4.5</span><span class="level-item">保护</span></span></a></li><li><a class="level is-mobile" href="#I-O-调用"><span class="level-left"><span class="level-item">4.6</span><span class="level-item">I/O 调用</span></span></a></li></ul></li><li><a class="level is-mobile" href="#IMPLEMENTATION-OF-THE-FILE-SYSTEM-文件系统的实现"><span class="level-left"><span class="level-item">5</span><span class="level-item">IMPLEMENTATION OF THE FILE SYSTEM 文件系统的实现</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#i-node：存储文件的信息"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">i-node：存储文件的信息</span></span></a></li><li><a class="level is-mobile" href="#文件操作与-i-node-机制"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">文件操作与 i-node 机制</span></span></a></li><li><a class="level is-mobile" href="#寻址架构与文件大小"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">寻址架构与文件大小</span></span></a></li><li><a class="level is-mobile" href="#特殊文件与挂载（Mount）"><span class="level-left"><span class="level-item">5.4</span><span class="level-item">特殊文件与挂载（Mount）</span></span></a></li><li><a class="level is-mobile" href="#缓存与-I-O-效率"><span class="level-left"><span class="level-item">5.5</span><span class="level-item">缓存与 I/O 效率</span></span></a></li><li><a class="level is-mobile" href="#i-list"><span class="level-left"><span class="level-item">5.6</span><span class="level-item">i-list</span></span></a></li></ul></li><li><a class="level is-mobile" href="#PROCESSES-AND-IMAGES-进程与映像"><span class="level-left"><span class="level-item">6</span><span class="level-item">PROCESSES AND IMAGES 进程与映像</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Processes-进程"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">Processes 进程</span></span></a></li><li><a class="level is-mobile" href="#Pipes-管道"><span class="level-left"><span class="level-item">6.2</span><span class="level-item">Pipes 管道</span></span></a></li><li><a class="level is-mobile" href="#Execution-of-programs-程序的执行"><span class="level-left"><span class="level-item">6.3</span><span class="level-item">Execution of programs 程序的执行</span></span></a></li><li><a class="level is-mobile" href="#Process-synchronization-进程同步"><span class="level-left"><span class="level-item">6.4</span><span class="level-item">Process synchronization 进程同步</span></span></a></li><li><a class="level is-mobile" href="#Termination-终止"><span class="level-left"><span class="level-item">6.5</span><span class="level-item">Termination 终止</span></span></a></li></ul></li><li><a class="level is-mobile" href="#THE-SHELL"><span class="level-left"><span class="level-item">7</span><span class="level-item">THE SHELL</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Standard-I-O-标准输入输出"><span class="level-left"><span class="level-item">7.1</span><span class="level-item">Standard I/O 标准输入输出</span></span></a></li><li><a class="level is-mobile" href="#Filters-过滤器"><span class="level-left"><span class="level-item">7.2</span><span class="level-item">Filters 过滤器</span></span></a></li><li><a class="level is-mobile" href="#Command-separators-multitasking-命令分隔符；多任务处理"><span class="level-left"><span class="level-item">7.3</span><span class="level-item">Command separators; multitasking 命令分隔符；多任务处理</span></span></a></li><li><a class="level is-mobile" href="#The-shell-as-a-command-command-files-作为命令的-Shell；命令文件"><span class="level-left"><span class="level-item">7.4</span><span class="level-item">The shell as a command; command files 作为命令的 Shell；命令文件</span></span></a></li><li><a class="level is-mobile" href="#Implementation-of-the-shell-Shell-的实现"><span class="level-left"><span class="level-item">7.5</span><span class="level-item">Implementation of the shell Shell 的实现</span></span></a></li><li><a class="level is-mobile" href="#Initialization-初始化"><span class="level-left"><span class="level-item">7.6</span><span class="level-item">Initialization 初始化</span></span></a></li><li><a class="level is-mobile" href="#Other-programs-as-shell-其他程序作为-Shell"><span class="level-left"><span class="level-item">7.7</span><span class="level-item">Other programs as shell 其他程序作为 Shell</span></span></a></li></ul></li><li><a class="level is-mobile" href="#TRAPS-陷阱"><span class="level-left"><span class="level-item">8</span><span class="level-item">TRAPS 陷阱</span></span></a></li><li><a class="level is-mobile" href="#PERSPECTIVE-展望"><span class="level-left"><span class="level-item">9</span><span class="level-item">PERSPECTIVE 展望</span></span></a></li><li><a class="level is-mobile" href="#INFLUENCES-灵感来源"><span class="level-left"><span class="level-item">10</span><span class="level-item">INFLUENCES 灵感来源</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">lbj&#039;s Blog</a><p class="is-size-7"><span>&copy; 2026 lbj</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
