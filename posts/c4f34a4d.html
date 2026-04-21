@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>mit6.1810学习笔记 - lbj&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lbj&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lbj&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="mit6.1810课程的学习笔记"><meta property="og:type" content="blog"><meta property="og:title" content="mit6.1810学习笔记"><meta property="og:url" content="https://llbjie.github.io/posts/c4f34a4d.html"><meta property="og:site_name" content="lbj&#039;s Blog"><meta property="og:description" content="mit6.1810课程的学习笔记"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://llbjie.github.io/image.png"><meta property="article:published_time" content="2026-03-29T06:39:37.000Z"><meta property="article:modified_time" content="2026-04-20T09:21:48.320Z"><meta property="article:author" content="lbj"><meta property="article:tag" content="公开课"><meta property="article:tag" content="操作系统"><meta property="article:tag" content="linux"><meta property="article:tag" content="unix"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llbjie.github.io/image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llbjie.github.io/posts/c4f34a4d.html"},"headline":"mit6.1810学习笔记","image":["https://llbjie.github.io/image.png"],"datePublished":"2026-03-29T06:39:37.000Z","dateModified":"2026-04-20T09:21:48.320Z","author":{"@type":"Person","name":"lbj"},"publisher":{"@type":"Organization","name":"lbj's Blog","logo":{"@type":"ImageObject","url":{"text":"lbj's Blog"}}},"description":"mit6.1810课程的学习笔记"}</script><link rel="canonical" href="https://llbjie.github.io/posts/c4f34a4d.html"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>mit6.1810学习笔记 - lbj&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lbj&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lbj&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="mit6.1810课程的学习笔记"><meta property="og:type" content="blog"><meta property="og:title" content="mit6.1810学习笔记"><meta property="og:url" content="https://llbjie.github.io/posts/c4f34a4d.html"><meta property="og:site_name" content="lbj&#039;s Blog"><meta property="og:description" content="mit6.1810课程的学习笔记"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://llbjie.github.io/images/xv6_figure_3.2.png"><meta property="article:published_time" content="2026-03-29T06:39:37.000Z"><meta property="article:modified_time" content="2026-04-21T09:05:08.456Z"><meta property="article:author" content="lbj"><meta property="article:tag" content="公开课"><meta property="article:tag" content="操作系统"><meta property="article:tag" content="linux"><meta property="article:tag" content="unix"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llbjie.github.io/images/xv6_figure_3.2.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llbjie.github.io/posts/c4f34a4d.html"},"headline":"mit6.1810学习笔记","image":["https://llbjie.github.io/images/xv6_figure_3.2.png"],"datePublished":"2026-03-29T06:39:37.000Z","dateModified":"2026-04-21T09:05:08.456Z","author":{"@type":"Person","name":"lbj"},"publisher":{"@type":"Organization","name":"lbj's Blog","logo":{"@type":"ImageObject","url":{"text":"lbj's Blog"}}},"description":"mit6.1810课程的学习笔记"}</script><link rel="canonical" href="https://llbjie.github.io/posts/c4f34a4d.html"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
   (function () {
       function switchTab() {
           if (!location.hash) {
@@ -29,7 +29,7 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">lbj&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-lightbulb" id="night-icon"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-03-29T06:39:37.000Z" title="3/29/2026, 2:39:37 PM">2026-03-29</time>发表</span><span class="level-item"><time dateTime="2026-04-20T09:21:48.320Z" title="4/20/2026, 5:21:48 PM">2026-04-20</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span><span class="level-item">1 小时读完 (大约9376个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">mit6.1810学习笔记</h1><div class="content"><p>mit6.1810课程的学习笔记</p>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">lbj&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-lightbulb" id="night-icon"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-03-29T06:39:37.000Z" title="3/29/2026, 2:39:37 PM">2026-03-29</time>发表</span><span class="level-item"><time dateTime="2026-04-21T09:05:08.456Z" title="4/21/2026, 5:05:08 PM">2026-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span><span class="level-item">1 小时读完 (大约8961个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">mit6.1810学习笔记</h1><div class="content"><p>mit6.1810课程的学习笔记</p>
 <span id="more"></span>
 
 <h2 id="Operating-system-interfaces-操作系统接口"><a href="#Operating-system-interfaces-操作系统接口" class="headerlink" title="Operating system interfaces 操作系统接口"></a>Operating system interfaces 操作系统接口</h2><p>操作系统的任务是在多个程序之间共享计算机资源，并提供比单纯硬件支持更有用的服务。具体来说有这下面几个功能：</p>
@@ -77,7 +77,7 @@
 <ul>
 <li>去除字符串前面的空格和制表符</li>
 <li>如果是换行符，直接进入下一轮循环</li>
-<li>如果是 <code>cd</code> 命令，不能再子进程执行，必须在当前进程执行</li>
+<li>如果是 <code>cd</code> 命令，不能在子进程执行，必须在当前进程执行</li>
 <li>其它情况，创建一个子进程，执行 <code>rumcmd</code> 函数</li>
 </ul>
 <h3 id="I-O-和文件描述符-I-O-and-File-descriptors"><a href="#I-O-和文件描述符-I-O-and-File-descriptors" class="headerlink" title="I&#x2F;O 和文件描述符 I&#x2F;O and File descriptors"></a>I&#x2F;O 和文件描述符 I&#x2F;O and File descriptors</h3><p>在内部，xv6 内核使用文件描述符作为每个进程表的索引，因此每个进程都有一个从 0 开始的私有文件描述符空间。</p>
@@ -88,14 +88,14 @@
 </blockquote>
 <p>示例程序如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;cat&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">  close(<span class="number">0</span>);   <span class="comment">// 关闭标准输入</span></span><br><span class="line">  open(<span class="string">&quot;input.txt&quot;</span>, O_RDONLY);  <span class="comment">// 打开一个文件，文件描述符为 0</span></span><br><span class="line">  exec(<span class="string">&quot;cat&quot;</span>, argv);            <span class="comment">// 执行 cat</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>首先关闭 0 这个文件描述符，重写打开的 <code>input.txt</code> 返回的文件描述符的值是 0；<br>然后使用 <code>exec</code> 这个系统调用，会替换调用进程的地址空间，但保留文件描述符表，0 还是 <code>input.txt</code> 这个文件。</p>
+<p>首先关闭 0 这个文件描述符，重新打开的 <code>input.txt</code> 返回的文件描述符的值是 0；<br>然后使用 <code>exec</code> 这个系统调用，会替换调用进程的地址空间，但保留文件描述符表，0 还是 <code>input.txt</code> 这个文件。</p>
 <p>现在应该清楚为什么将 fork 和 exec 作为两个独立的系统调用是有益的：在这两个调用之间，shell 有机会重定向子进程的 I&#x2F;O，而不会干扰主 shell 自身的 I&#x2F;O 设置。</p>
 <blockquote>
 <ol>
 <li>这里的意思是说shell执行一个命令时，会先 <code>fork</code> 出一个子进程， 子进程设置一些必要的文件描述符（如标准输出，标准输入）等，再调用 <code>exec</code> 执行命令</li>
 <li>为什么设计这样分离设计 <code>fork</code> 和 <code>exec</code>, 而不是合并成一个 <code>forkExec</code>? 这样设计的好处是什么？<ul>
 <li>这样设计造成了这样一种后果：在<code>fork</code> 和 <code>exec</code>之间存在了一个 操纵窗口, 这个窗口可以进行I&#x2F;O重定向</li>
-<li>另外，一些情况下只需要 <code>fork</code>, 不需要执行 &#96;exec</li>
+<li>另外，一些情况下只需要 <code>fork</code>, 不需要执行 <code>exec</code></li>
 <li>符合unix设计哲学：设计基于少量核心机制的接口，这些机制能够灵活组合，从而提供广泛的通用性。</li>
 </ul>
 </li>
@@ -105,7 +105,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">  write(<span class="number">1</span>, <span class="string">&quot;hello &quot;</span>, <span class="number">6</span>);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  wait(<span class="number">0</span>);</span><br><span class="line">  write(<span class="number">1</span>, <span class="string">&quot;world\n&quot;</span>, <span class="number">6</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在该代码段结束时，与文件描述符 <code>1</code> 关联的文件将包含数据 <code>hello world</code>。父进程中的 <code>write</code> 操作（由于 <code>wait</code> 的存在，该操作仅在子进程结束后运行）会从子进程 <code>write</code> 操作停止的地方开始继续写入。这种特性有助于让 shell 命令序列产生顺序输出，例如 <code>(echo hello; echo world) &gt;output.txt</code>。</p>
 <p>另外 <code>dup</code> 系统调用返回的 <code>fd</code> 同样会共享文件偏移量。除了这两者之外，即使是打开同一份文件也不会共享文件偏移量</p>
-<p>如何在命令上赋值文件描述符:</p>
+<p>如何在命令上复制文件描述符:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> existing-file non-existing-file &gt; tmp1 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
 <p>这里的 <code>2&gt;&amp;1</code> 表示将标准错误输入到标准输出（这里是tmp1这个文件）</p>
 <h3 id="Pipes-管道"><a href="#Pipes-管道" class="headerlink" title="Pipes 管道"></a>Pipes 管道</h3><p>管道（pipe）是一个小的内核缓冲区，以一对文件描述符的形式暴露给进程：一个用于读取，另一个用于写入。</p>
@@ -114,11 +114,11 @@
 <ul>
 <li>首先 <code>fork</code> 出一个子进程执行命令，分析命令的格式</li>
 <li>如果包含 <code>|</code>, <code>|</code> 的两边都会<code>fork</code>出一个进程，然后 <code>exec</code> 对应的命令，然后等待两边的进程都结束</li>
-<li>如果 <code>cmd1</code> 同样包含 <code>|</code>, 它也会 <code>fork</code> 出两个子进程然后调用 <code>exec</code>。最终会形成一颗进程树,叶节点是需要执行的命令，中间结点时等待两侧结束的进程</li>
+<li>如果 <code>cmd1</code> 同样包含 <code>|</code>, 它也会 <code>fork</code> 出两个子进程然后调用 <code>exec</code>。最终会形成一棵进程树,叶节点是需要执行的命令，中间结点是等待两侧结束的进程</li>
 </ul>
 </blockquote>
 <blockquote>
-<p>为什么这么设计，能不能自己进程执行左侧的命令，<code>fork</code>出一个进程执行右边的命令h? 或者<code>fork</code>出一个子进程执行左边的命令，本进程执行右边的命令</p>
+<p>为什么这么设计，能不能自己进程执行左侧的命令，<code>fork</code>出一个进程执行右边的命令? 或者<code>fork</code>出一个子进程执行左边的命令，本进程执行右边的命令</p>
 <ul>
 <li>先执行命令会替换掉当前进程的地址空间，导致不能执行另外一个命令</li>
 <li>先 <code>fork</code> 出一个进程然后去右侧命令，再在当前进程中执行左侧命令好像看起来可以？某些命令需要先有左侧的输出再执行右侧的命令，按照这种设计就顺序就被打破了。</li>
@@ -140,8 +140,8 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> T_DIR     1   <span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> T_FILE    2   <span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> T_DEVICE  3   <span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> dev;     <span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">  uint ino;    <span class="comment">// Inode number</span></span><br><span class="line">  <span class="type">short</span> type;  <span class="comment">// Type of file</span></span><br><span class="line">  <span class="type">short</span> nlink; <span class="comment">// Number of links to file</span></span><br><span class="line">  uint64 size; <span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="Operating-system-organization-操作系统组织"><a href="#Operating-system-organization-操作系统组织" class="headerlink" title="Operating system organization 操作系统组织"></a>Operating system organization 操作系统组织</h2><p>一个操作系统必须满足三个要求：</p>
 <ul>
-<li>多路复用, 指的是操作系统能同时运行超过硬件CPU数目的应用程序，</li>
-<li>隔离，每个进程都感觉自己独立占有了计算机资源，不会影响到其它进程</li>
+<li>多路复用, 指的是操作系统（看起来）能同时运行超过硬件CPU数目的应用程序，</li>
+<li>隔离，每个进程都感觉自己独占了计算机资源，不会影响到其它进程</li>
 <li>交互，提供进程之间交互的功能，如 <code>pipe</code></li>
 </ul>
 <p>本章概述了操作系统是如何组织起来以实现这三个要求的。实现这些目标的方法有很多，但本书主要关注以<strong>单体内核</strong>为核心的主流设计，这种设计被许多 Unix 操作系统所采用。本章还介绍了 xv6 中的进程——它是 xv6 中实现隔离的基本单位——以及 xv6 启动时第一个进程的创建过程。</p>
@@ -160,7 +160,7 @@
 <blockquote>
 <p>‘DB-OS’协同设计：硬件发展的速度，已经远远甩开了操作系统通用接口的演进速度。以往CPU花费在系统调用上的开销很小，而现在往往是CPU在等待操作系统。操作系统本身正在成为新的“慢速磁盘”。像数据库这种软件，权限比一般的应用更大，在某些情况下也应该有操作系统级别的权限。如何进行“DB-OS协同设计”正在成为一个至关重要的问题。</p>
 </blockquote>
-<h3 id="User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用"><a href="#User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用" class="headerlink" title="User mode, supervisor mode, and system calls  用户态、监督态与系统调用"></a>User mode, supervisor mode, and system calls  用户态、监督态与系统调用</h3><p>为了实现强隔离，操作系统必须确保：应用程序不能修改（甚至不能读取）操作系统的数据结构和指令，并且应用程序也不能访问其他进程的内存。CPUs提供了硬件上的支持。<br>例如 RISC-V有三种cpu指向指令的模式：</p>
+<h3 id="User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用"><a href="#User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用" class="headerlink" title="User mode, supervisor mode, and system calls  用户态、监督态与系统调用"></a>User mode, supervisor mode, and system calls  用户态、监督态与系统调用</h3><p>为了实现强隔离，操作系统必须确保：应用程序不能修改（甚至不能读取）操作系统的数据结构和指令，并且应用程序也不能访问其他进程的内存。CPUs提供了硬件上的支持。<br>例如 RISC-V有三种cpu执行指令的模式：</p>
 <ul>
 <li>机器态，运行在此种状态的指令有完全的特权，CPU 在启动时最初处于机器态。</li>
 <li>监督态，xv6 只在机器态下执行少量代码，然后就切换到监督态运行。允许执行特权指令。</li>
@@ -179,12 +179,12 @@
 <p>CPU 提供了一种特殊指令，可以将 CPU 从用户态切换到监督态，并从内核指定的入口点进入内核。（在 RISC-V 中，这个指令是 <code>ecall</code>。）<br>当 CPU 切换到监督态之后，内核就可以对系统调用的参数进行验证（例如，检查传入的地址是否属于该应用程序的内存空间），并判断该应用是否有权限执行请求的操作（例如，检查该应用是否有权限写入指定文件），然后决定拒绝还是执行该操作。</p>
 <h3 id="Kernel-organization-内核组织"><a href="#Kernel-organization-内核组织" class="headerlink" title="Kernel organization 内核组织"></a>Kernel organization 内核组织</h3><p>一个关键设计问题是 <strong>操作系统的那些部分应该允许在监督态</strong>。有两种设计架构：</p>
 <ul>
-<li>宏内核，整个操作系统都运行在监督态中，所有的功能都拥有完整特权，所以操作系统的组织设计十分方便；此外操作系统的各个部分可以很容易的进行协同。这种设计的缺点在于:操作系统各个组成部分之间的接口往往十分复杂，因此系统开发者很容易出错，而且发生在监督态的错误通常会导致内核崩溃。</li>
+<li>宏内核，整个操作系统都运行在监督态中，所有的功能都拥有完整特权，所以操作系统的组织设计十分方便；此外操作系统的各个部分可以很容易进行协同。这种设计的缺点在于:操作系统各个组成部分之间的接口往往十分复杂，因此系统开发者很容易出错，而且发生在监督态的错误通常会导致内核崩溃。</li>
 <li>微内核，只有必要的功能运行在内核态，其余功能放在用户态。内核提供进程间的通信机制。</li>
 </ul>
 <blockquote>
 <ol>
-<li>在微内核架构中，那些功能应该放在用户态，那些功能应该放到监督态</li>
+<li>在微内核架构中，那些功能应该放在用户态，哪些功能应该放到监督态</li>
 <li>这两种架构各自的应用场景是什么</li>
 </ol>
 </blockquote>
@@ -270,10 +270,10 @@
 <p>xv6 为每个进程维护一个独立的页表，用来定义该进程的地址空间。</p>
 <p>有多个因素限制了进程地址空间的最大大小：RISC-V 中的指针是 64 位宽；硬件在通过页表查找虚拟地址时只使用低 39 位；而 xv6 在这 39 位中只使用了 38 位。因此，最大地址为 2^38 − 1 &#x3D; 0x3fffffffff，这个值被称为 MAXVA（定义于 <code>kernel/riscv.h:363</code>）。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXVA (1L &lt;&lt; (9 + 9 + 9 + 12 - 1))</span></span><br></pre></td></tr></table></figure>
-<p>在地址空间的顶部，xv6 预留了一个页面用于 trampoline（跳板），以及一个页面用于映射进程的 trapframe。xv6 利用这两个页面在用户态与内核态之间进行切换：</p>
+<p>在地址空间的顶部，xv6 预留了一个页面用于 <code>trampoline</code>（跳板），以及一个页面用于映射进程的 <code>trapframe</code>。xv6 利用这两个页面在用户态与内核态之间进行切换：</p>
 <ul>
-<li>trampoline 页面包含进入和退出内核的代码，</li>
-<li>而映射 trapframe 则是为了保存和恢复用户进程的状态，这一点将在第 4 章中详细说明。</li>
+<li><code>trampoline</code> 页面包含进入和退出内核的代码，</li>
+<li>而映射 <code>trapframe</code> 则是为了保存和恢复用户进程的状态，这一点将在第 4 章中详细说明。</li>
 </ul>
 <p>进程的相关信息被保存到 <code>struct proc</code>中，其定义位于 <code>kernel/proc.h</code>：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Per-process state</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc</span> &#123;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">lock</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// p-&gt;lock must be held when using these:</span></span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">procstate</span> <span class="title">state</span>;</span>        <span class="comment">// Process state</span></span><br><span class="line">  <span class="type">void</span> *chan;                  <span class="comment">// If non-zero, sleeping on chan</span></span><br><span class="line">  <span class="type">int</span> killed;                  <span class="comment">// If non-zero, have been killed</span></span><br><span class="line">  <span class="type">int</span> xstate;                  <span class="comment">// Exit status to be returned to parent&#x27;s wait</span></span><br><span class="line">  <span class="type">int</span> pid;                     <span class="comment">// Process ID</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// wait_lock must be held when using this:</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">parent</span>;</span>         <span class="comment">// Parent process</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// these are private to the process, so p-&gt;lock need not be held.</span></span><br><span class="line">  uint64 kstack;               <span class="comment">// Virtual address of kernel stack</span></span><br><span class="line">  uint64 sz;                   <span class="comment">// Size of process memory (bytes)</span></span><br><span class="line">  <span class="type">pagetable_t</span> pagetable;       <span class="comment">// User page table</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> *<span class="title">trapframe</span>;</span> <span class="comment">// data page for trampoline.S</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>      <span class="comment">// swtch() here to run process</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">file</span> *<span class="title">ofile</span>[<span class="title">NOFILE</span>];</span>  <span class="comment">// Open files</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">cwd</span>;</span>           <span class="comment">// Current directory</span></span><br><span class="line">  <span class="type">char</span> name[<span class="number">16</span>];               <span class="comment">// Process name (debugging)</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// riscv.h pagetable_t 的定义</span></span><br><span class="line"><span class="keyword">typedef</span> uint64 *<span class="type">pagetable_t</span>; <span class="comment">// 512 PTEs</span></span><br></pre></td></tr></table></figure>
@@ -299,7 +299,7 @@
 </ol>
 </li>
 <li>在内核栈上运行内核代码</li>
-<li>内核调用 usertrapret(),回到 <code>trampoline</code></li>
+<li>内核调用 <code>usertrapret()</code>,回到 <code>trampoline</code></li>
 <li><code>trampoline</code> 恢复现场</li>
 <li>执行 <code>sret</code>,</li>
 <li>回到用户态，用户程序继续执行</li>
@@ -311,223 +311,16 @@
 <ol>
 <li><p>当 RISC-V 计算机上电时，它会进行初始化，并运行一个存储在只读存储器中的引导加载程序（boot loader）。该引导加载程序会将 xv6 内核加载到内存中。随后，在机器模式（machine mode）下，CPU 从 <code>_entry</code>（kernel&#x2F;entry.S:7）开始执行 xv6。<strong>RISC-V 在启动时页式内存管理硬件是关闭的：虚拟地址会直接映射到物理地址。</strong></p>
 </li>
-<li><p><code>start</code> 在 machine mode 下完成必要的 CPU 初始化（设置特权返回级别、关闭分页、配置中断与内存访问权限、设置定时器与 hartid），然后通过 <code>mret</code> 伪造返回到 S-Mode 并跳转到 <code>main()</code>。</p>
+<li><p><code>kernel/start.c</code> 在 machine mode 下完成必要的 CPU 初始化（设置特权返回级别、关闭分页、配置中断与内存访问权限、设置定时器与 hartid），然后通过 <code>mret</code> 伪造返回到 S-Mode 并跳转到 <code>main()</code>。</p>
 </li>
-<li><p><code>main</code> 函数：在 S-Mode 下初始化内核页表、进程池、驱动程序等软件子系统，并最终启动第一个用户进程(调用userinit)以进入系统运行状态：</p>
+<li><p><code>kernel/main.c</code> 函数：在 S-Mode 下初始化内核页表、进程池、驱动程序等软件子系统，并最终启动第一个用户进程(调用userinit)以进入系统运行状态：</p>
 <ul>
-<li>forkret调用，在这时会加载并执行 <code>/init</code> 程序</li>
+<li><code>forkret</code> 调用，在这时会加载并执行 <code>/init</code> 程序</li>
 </ul>
 </li>
-<li><p><code>/init</code>，创建一个新的<code>console</code>文件（没有时候），打开文件描述符 0、1、2</p>
+<li><p><code>user/init.c</code>，创建一个新的<code>console</code>文件（没有的时候），打开文件描述符 0、1、2</p>
 </li>
 </ol>
-<!-- ```c
-# kernel/entry.S
-        # qemu -kernel loads the kernel at 0x80000000
-        # and causes each hart (i.e. CPU) to jump there.
-        # kernel.ld causes the following code to
-        # be placed at 0x80000000.
-.section .text
-.global _entry
-_entry:
-        # set up a stack for C.
-        # stack0 is declared in start.c,
-        # with a 4096-byte stack per CPU.
-        # sp = stack0 + ((hartid + 1) * 4096)
-        la sp, stack0                         # 把 stack0 的地址加载到寄存器
-        li a0, 1024*4                         # 设置每个 cpu 栈的大小，4KB
-        csrr a1, mhartid                      # 获取 CPU id（hartid）
-        addi a1, a1, 1                        # 
-        mul a0, a0, a1                        # 计算栈偏移 stack offset = 4096 × (hartid + 1)
-        add sp, sp, a0                        # 设置每个 CPU 的栈指针, 从这里可以看出栈指针是放在高地址的，那么增长方向是向低地址进行的
-        # jump to start() in start.c          #
-        call start                            # 调用 start() 函数
-spin:
-        j spin
-
-# _entry 的唯一任务就是：为每个 CPU 建立栈，然后进入 C 语言内核初始化函数 start()。
-# 这段程序的加载位置是 `0x80000000`,
-```
-
-```c
-#include "types.h"
-#include "param.h"
-#include "memlayout.h"
-#include "riscv.h"
-#include "defs.h"
-
-void main();
-void timerinit();
-
-// entry.S needs one stack per CPU.
-__attribute__ ((aligned (16))) char stack0[4096 * NCPU];
-
-// entry.S jumps here in machine mode on stack0.
-void
-start()
-&#123;
-  // set M Previous Privilege mode to Supervisor, for mret.
-  unsigned long x = r_mstatus();
-  x &= ~MSTATUS_MPP_MASK;
-  x |= MSTATUS_MPP_S;
-  w_mstatus(x);
-
-  // set M Exception Program Counter to main, for mret.
-  // requires gcc -mcmodel=medany
-  w_mepc((uint64)main);
-
-  // disable paging for now.
-  w_satp(0);
-
-  // delegate all interrupts and exceptions to supervisor mode.
-  w_medeleg(0xffff);
-  w_mideleg(0xffff);
-  w_sie(r_sie() | SIE_SEIE | SIE_STIE);
-
-  // configure Physical Memory Protection to give supervisor mode
-  // access to all of physical memory.
-  w_pmpaddr0(0x3fffffffffffffull);
-  w_pmpcfg0(0xf);
-
-  // ask for clock interrupts.
-  timerinit();
-
-  // keep each CPU's hartid in its tp register, for cpuid().
-  int id = r_mhartid();
-  w_tp(id);
-
-  // switch to supervisor mode and jump to main().
-  asm volatile("mret");
-&#125;
-
-// ask each hart to generate timer interrupts.
-void
-timerinit()
-&#123;
-  // enable supervisor-mode timer interrupts.
-  w_mie(r_mie() | MIE_STIE);
-  
-  // enable the sstc extension (i.e. stimecmp).
-  w_menvcfg(r_menvcfg() | (1L << 63)); 
-  
-  // allow supervisor to use stimecmp and time.
-  w_mcounteren(r_mcounteren() | 2);
-  
-  // ask for the very first timer interrupt.
-  w_stimecmp(r_time() + 1000000);
-&#125;
-
-// 分析 todo
-```
-
-```c
-#include "types.h"
-#include "param.h"
-#include "memlayout.h"
-#include "riscv.h"
-#include "defs.h"
-
-volatile static int started = 0;
-
-// start() jumps here in supervisor mode on all CPUs.
-void
-main()
-&#123;
-  if(cpuid() == 0)&#123;
-    consoleinit();
-    printfinit();
-    printf("\n");
-    printf("xv6 kernel is booting\n");
-    printf("\n");
-    kinit();         // physical page allocator
-    kvminit();       // create kernel page table
-    kvminithart();   // turn on paging
-    procinit();      // process table
-    trapinit();      // trap vectors
-    trapinithart();  // install kernel trap vector
-    plicinit();      // set up interrupt controller
-    plicinithart();  // ask PLIC for device interrupts
-    binit();         // buffer cache
-    iinit();         // inode table
-    fileinit();      // file table
-    virtio_disk_init(); // emulated hard disk
-    userinit();      // first user process ， 
-    __sync_synchronize();
-    started = 1;
-  &#125; else &#123;
-    while(started == 0)
-      ;
-    __sync_synchronize();
-    printf("hart %d starting\n", cpuid());
-    kvminithart();    // turn on paging
-    trapinithart();   // install kernel trap vector
-    plicinithart();   // ask PLIC for device interrupts
-  &#125;
-
-  scheduler();        
-&#125;
-
-// userinit
-// Set up first user process.
-void userinit(void) &#123;
-  struct proc *p;
-
-  p = allocproc();
-  initproc = p;
-  
-  p->cwd = namei("/");
-
-  p->state = RUNNABLE;
-
-  release(&p->lock);
-&#125;
-
-static struct proc*
-allocproc(void)
-&#123;
-  struct proc *p;
-
-  for(p = proc; p < &proc[NPROC]; p++) &#123;
-    acquire(&p->lock);
-    if(p->state == UNUSED) &#123;
-      goto found;
-    &#125; else &#123;
-      release(&p->lock);
-    &#125;
-  &#125;
-  return 0;
-
-found:
-  p->pid = allocpid();
-  p->state = USED;
-
-  // Allocate a trapframe page.
-  if((p->trapframe = (struct trapframe *)kalloc()) == 0)&#123;
-    freeproc(p);
-    release(&p->lock);
-    return 0;
-  &#125;
-
-  // An empty user page table.
-  p->pagetable = proc_pagetable(p);
-  if(p->pagetable == 0)&#123;
-    freeproc(p);
-    release(&p->lock);
-    return 0;
-  &#125;
-
-  // Set up new context to start executing at forkret,
-  // which returns to user space.
-  memset(&p->context, 0, sizeof(p->context));
-  p->context.ra = (uint64)forkret;
-  p->context.sp = p->kstack + PGSIZE;
-
-  return p;
-&#125;
-
-// 分析 todo
-``` 
--->
 <h3 id="Security-Model-安全模型"><a href="#Security-Model-安全模型" class="headerlink" title="Security Model 安全模型"></a>Security Model 安全模型</h3><p>操作系统必须假设：一个进程中的用户级代码会尽一切可能破坏内核或其他进程。</p>
 <p>内核的目标是限制每个用户进程，使其只能执行以下操作：读&#x2F;写&#x2F;执行其自身的用户内存、使用 32 个通用 RISC-V 寄存器，并且仅通过系统调用所允许的方式影响内核和其他进程。内核必须阻止任何其他行为。这通常是内核设计中的绝对要求。</p>
 <p>对于内核自身代码的假设则完全不同。我们认为内核代码是由善意且谨慎的程序员编写的，应该是没有错误的，更不应包含恶意行为。</p>
@@ -536,25 +329,35 @@ found:
 <h2 id="Page-tables"><a href="#Page-tables" class="headerlink" title="Page tables"></a>Page tables</h2><h3 id="paging-hardware-分页硬件"><a href="#paging-hardware-分页硬件" class="headerlink" title="paging hardware 分页硬件"></a>paging hardware 分页硬件</h3><blockquote>
 <p>疑问：页面映射是由硬件完成的吗？进程数据结构中的 proc-pagetable 起到什么作用？<br>答案是：地址翻译（Address Translation）由硬件完成，但页表的构建和维护由软件（操作系统）完成。</p>
 </blockquote>
-<p><code>xv6</code> 使用 SV39模式，即64位虚拟地址中只有最低<strong>39</strong>位被使用。其中<strong>高27位</strong>用于 <code>page table</code>的索引, <strong>低12位</strong> 是页内偏移(offset)。</p>
+<p><code>xv6</code> 使用 SV39模式，即64位虚拟地址中只有最低<strong>39</strong>位被使用。其中<strong>高27位</strong>用于 <code>page table</code>的索引, <strong>低12位</strong> 是页内偏移(offset)。<br>每个 <code>PTEs</code> 的<strong>高44位</strong>被用于物理页号（physical page number, PPN），其余是一些标志位(flags)<br><code>PPN</code>和<code>offset</code>拼接最后形成了完整的物理地址：<code>PA = concat(PPN, offset)</code></p>
 <blockquote>
-<p>这里可以推出 <code>page table</code> 最多可以有 2^27 个元素（页表项，page table entries, PTEs）</p>
-</blockquote>
-<p>每个 <code>PTEs</code> 的<strong>高44位</strong>被用于物理页号（physical page number, PPN），其余是一些标志位(flags)</p>
-<blockquote>
-<p>每个 PTEs具体多少位不确定，取决于系统地址的长度，文中的长度为56，可以推出这里的标志位为12位</p>
-</blockquote>
-<p><code>PPN</code>和<code>offset</code>拼接最后形成了完整的物理地址：<code>PA = concat(PPN, offset)</code></p>
-<blockquote>
-<p>虚拟地址的长度 &#x3D; 39， 物理地址长度等于 56， 两者不相等</p>
+<ul>
+<li>这里可以推出 <code>page table</code> 最多可以有 2^27 个元素（页表项，page table entries, PTEs）</li>
+<li>也可以推出，一个页的大小是 2^12B &#x3D; 4096字节</li>
+<li>每个 PTEs具体多少位不确定，取决于系统地址的长度，文中的长度为56，可以推出这里的标志位为12位</li>
+<li>虚拟地址的长度 &#x3D; 39， 物理地址长度等于 56， 两者不相等</li>
+</ul>
 </blockquote>
 <p>RISC-V的页表以<strong>三级树</strong>的形式存储在物理内存中。</p>
-<p><img src="/image.png" alt="alt text"></p>
-<h2 id="Traps-and-system-calls-陷阱和系统调用"><a href="#Traps-and-system-calls-陷阱和系统调用" class="headerlink" title="Traps and system calls 陷阱和系统调用"></a>Traps and system calls 陷阱和系统调用</h2><h3 id="Code-Calling-system-calls-代码：调用系统调用"><a href="#Code-Calling-system-calls-代码：调用系统调用" class="headerlink" title="Code: Calling system calls 代码：调用系统调用"></a>Code: Calling system calls 代码：调用系统调用</h3><p>用户程序通过调用库函数来发起系统调用。例如，shell 使用如下函数调用来显示提示符</p>
+<p><img src="/images/xv6_figure_3.2.png" alt="RISC-V 三级页表"></p>
+<p>从上图也可以看出 <code>flags</code>中有那些位</p>
+<blockquote>
+<p><strong>MMU</strong>将虚拟地址翻译成物理地址，总的流程如下：</p>
+<ol>
+<li>从寄存器 <code>satp</code> 中取到一级页表的物理地址，这一步不存在地址翻译</li>
+<li>虚拟地址中的高9位作为一节页表的索引，从而获得了二级页表的物理地址</li>
+<li>同理，虚拟地址中间9位作为二级页表的索引，获得了三级页表的物理地址</li>
+<li>低9位作为三级页表的索引获得了 <code>PPN</code></li>
+<li>拼接 <code>PPN</code> 和 <code>offset</code> 获得了最终的物理地址</li>
+</ol>
+<p>多级页表相对于单级页表的优势在于能够很好的节约系统空间。<br>如果进程 A 只使用了一个页面</p>
+</blockquote>
+<p>从上面的流程可以看到，如果需要翻译一个虚拟地址，需要加载三次内存，为了解决这个问题，引入了 <code>Translation Look-aside Buffer (TLB)</code></p>
+<h3 id="Kernel-address-space-内核地址空间"><a href="#Kernel-address-space-内核地址空间" class="headerlink" title="Kernel address space 内核地址空间"></a>Kernel address space 内核地址空间</h3><h2 id="Traps-and-system-calls-陷阱和系统调用"><a href="#Traps-and-system-calls-陷阱和系统调用" class="headerlink" title="Traps and system calls 陷阱和系统调用"></a>Traps and system calls 陷阱和系统调用</h2><h3 id="Code-Calling-system-calls-代码：调用系统调用"><a href="#Code-Calling-system-calls-代码：调用系统调用" class="headerlink" title="Code: Calling system calls 代码：调用系统调用"></a>Code: Calling system calls 代码：调用系统调用</h3><p>用户程序通过调用库函数来发起系统调用。例如，shell 使用如下函数调用来显示提示符</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(<span class="number">2</span>, <span class="string">&quot;$&quot;</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 <p>对应的库函数定义在 <code>user/usys.S</code> 中:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">write:</span><br><span class="line">  li a7, SYS_write</span><br><span class="line">  ecall</span><br><span class="line">  ret</span><br></pre></td></tr></table></figure>
-<p>C 编译器生成的代码会将三个参数分别加载到寄存器 a0、a1 和 a2 中。然后，write() 函数会将系统调用号 <code>SYS_write</code>（值为 16）加载到寄存器 a7 中。</p>
+<p>C 编译器生成的代码会将三个参数分别加载到寄存器 a0、a1 和 a2 中。然后，write() 函数会将系统调用号 <code>SYS_write</code>（值为 16）加载到寄存器 <code>a7</code> 中。</p>
 <p><code>ecall</code> 指令会使程序从用户态陷入内核态，并依次执行：<code>uservec</code>、 <code>usertrap</code>、<code>syscall</code></p>
 <p><code>syscall</code> 从 <code>a7</code> 中取回系统调用号，将这个数字作为<code>syscalls</code>的索引。当 <code>sys_write</code> 返回时会将返回值记录在<code>p-&gt;trampframe-&gt;a0</code>中，这将导致用户态最初对 write() 的调用也返回该值，因为 RISC-V 的 C 语言调用约定（calling convention）规定通过 a0 寄存器传递返回值。<br>按照惯例，系统调用返回负数表示失败，返回零或正数则表示成功。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">syscall</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> num;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">  num = p-&gt;trapframe-&gt;a7;                                         <span class="comment">// a7中保存了系统调用的编号</span></span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num]) &#123;</span><br><span class="line">    <span class="comment">// Use num to lookup the system call function for num, call it,</span></span><br><span class="line">    <span class="comment">// and store its return value in p-&gt;trapframe-&gt;a0</span></span><br><span class="line">    p-&gt;trapframe-&gt;a0 = syscalls[num]();                           <span class="comment">// syscalls 是一个数组；保存返回结果到 a0 中</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>,</span><br><span class="line">            p-&gt;pid, p-&gt;name, num);</span><br><span class="line">    p-&gt;trapframe-&gt;a0 = <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -570,7 +373,7 @@ found:
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fetchstr</span><span class="params">(uint64 addr, <span class="type">char</span> *buf, <span class="type">int</span> max)</span> &#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  <span class="keyword">if</span>(copyinstr(p-&gt;pagetable, buf, addr, max) &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">strlen</span>(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>copyinstr</code> 从用户页表 <code>pagetable</code> 中的虚拟地址 <code>srcva</code> 复制最多 <code>max</code> 字节到目标地址 <code>dst</code>。由于该用户页表并非当前的活动页表，<code>copyinstr</code> 使用 <code>walkaddr</code>（其内部调用 <code>walk</code>）在 <code>pagetable</code> 中查找 <code>srcva</code>，从而得到物理地址 <code>pa0</code>。内核页表将所有的物理内存映射到与其物理地址相等的虚拟地址上（等值映射），这使得 <code>copyinstr</code> 能够直接将字符串字节从 <code>pa0</code> 复制到 <code>dst</code>。<code>walkaddr</code> (1520) 会检查用户提供的虚拟地址是否属于该进程的用户地址空间，从而防止程序欺骗内核读取其他内存区域。类似的功能函数 <code>copyout</code> 则负责将数据从内核复制到用户提供的地址。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">copyinstr</span><span class="params">(<span class="type">pagetable_t</span> pagetable, <span class="type">char</span> *dst, uint64 srcva, uint64 max)</span> &#123;</span><br><span class="line">  uint64 n, va0, pa0;</span><br><span class="line">  <span class="type">int</span> got_null = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(got_null == <span class="number">0</span> &amp;&amp; max &gt; <span class="number">0</span>)&#123;</span><br><span class="line">    va0 = PGROUNDDOWN(srcva);</span><br><span class="line">    pa0 = walkaddr(pagetable, va0);</span><br><span class="line">    <span class="keyword">if</span>(pa0 == <span class="number">0</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    n = PGSIZE - (srcva - va0);</span><br><span class="line">    <span class="keyword">if</span>(n &gt; max)</span><br><span class="line">      n = max;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> *p = (<span class="type">char</span> *) (pa0 + (srcva - va0));</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(*p == <span class="string">&#x27;\0&#x27;</span>)&#123;</span><br><span class="line">        *dst = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        got_null = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        *dst = *p;</span><br><span class="line">      &#125;</span><br><span class="line">      --n;</span><br><span class="line">      --max;</span><br><span class="line">      p++;</span><br><span class="line">      dst++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    srcva = va0 + PGSIZE;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(got_null)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</div><div class="article-licensing box"><div class="licensing-title"><p>mit6.1810学习笔记</p><p><a href="https://llbjie.github.io/posts/c4f34a4d.html">https://llbjie.github.io/posts/c4f34a4d.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lbj</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-03-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-04-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%85%AC%E5%BC%80%E8%AF%BE/">公开课</a><a class="link-muted mr-2" rel="tag" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">linux</a><a class="link-muted mr-2" rel="tag" href="/tags/unix/">unix</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/6829777a.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">cs144学习笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/f3d4e33a.html"><span class="level-item">计网总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="llbjie/llbjie.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Operating-system-interfaces-操作系统接口"><span class="level-left"><span class="level-item">1</span><span class="level-item">Operating system interfaces 操作系统接口</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Processes-and-memory-进程和内存"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Processes and memory 进程和内存</span></span></a></li><li><a class="level is-mobile" href="#I-O-和文件描述符-I-O-and-File-descriptors"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">I/O 和文件描述符 I/O and File descriptors</span></span></a></li><li><a class="level is-mobile" href="#Pipes-管道"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">Pipes 管道</span></span></a></li><li><a class="level is-mobile" href="#File-System-文件系统"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">File System 文件系统</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Operating-system-organization-操作系统组织"><span class="level-left"><span class="level-item">2</span><span class="level-item">Operating system organization 操作系统组织</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Abstracting-physical-resources-抽象物理资源"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">Abstracting physical resources 抽象物理资源</span></span></a></li><li><a class="level is-mobile" href="#User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">User mode, supervisor mode, and system calls  用户态、监督态与系统调用</span></span></a></li><li><a class="level is-mobile" href="#Kernel-organization-内核组织"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">Kernel organization 内核组织</span></span></a></li><li><a class="level is-mobile" href="#Code-xv6-organization-xv6-代码的组织"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">Code: xv6 organization xv6 代码的组织</span></span></a></li><li><a class="level is-mobile" href="#Process-overview-进程概览"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">Process overview 进程概览</span></span></a></li><li><a class="level is-mobile" href="#Code-starting-xv6-the-first-process-and-system-call-代码：启动-xv6、第一个进程和系统调用"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">Code: starting xv6, the first process and system call 代码：启动 xv6、第一个进程和系统调用</span></span></a></li><li><a class="level is-mobile" href="#Security-Model-安全模型"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">Security Model 安全模型</span></span></a></li><li><a class="level is-mobile" href="#Real-world"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">Real world</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Page-tables"><span class="level-left"><span class="level-item">3</span><span class="level-item">Page tables</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#paging-hardware-分页硬件"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">paging hardware 分页硬件</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Traps-and-system-calls-陷阱和系统调用"><span class="level-left"><span class="level-item">4</span><span class="level-item">Traps and system calls 陷阱和系统调用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Code-Calling-system-calls-代码：调用系统调用"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">Code: Calling system calls 代码：调用系统调用</span></span></a></li><li><a class="level is-mobile" href="#Code-System-call-arguments-代码：系统调用参数"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">Code: System call arguments 代码：系统调用参数</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">lbj&#039;s Blog</a><p class="is-size-7"><span>&copy; 2026 lbj</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+</div><div class="article-licensing box"><div class="licensing-title"><p>mit6.1810学习笔记</p><p><a href="https://llbjie.github.io/posts/c4f34a4d.html">https://llbjie.github.io/posts/c4f34a4d.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lbj</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-03-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-04-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%85%AC%E5%BC%80%E8%AF%BE/">公开课</a><a class="link-muted mr-2" rel="tag" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">linux</a><a class="link-muted mr-2" rel="tag" href="/tags/unix/">unix</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/6829777a.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">cs144学习笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/f3d4e33a.html"><span class="level-item">计网总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="llbjie/llbjie.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Operating-system-interfaces-操作系统接口"><span class="level-left"><span class="level-item">1</span><span class="level-item">Operating system interfaces 操作系统接口</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Processes-and-memory-进程和内存"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Processes and memory 进程和内存</span></span></a></li><li><a class="level is-mobile" href="#I-O-和文件描述符-I-O-and-File-descriptors"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">I/O 和文件描述符 I/O and File descriptors</span></span></a></li><li><a class="level is-mobile" href="#Pipes-管道"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">Pipes 管道</span></span></a></li><li><a class="level is-mobile" href="#File-System-文件系统"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">File System 文件系统</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Operating-system-organization-操作系统组织"><span class="level-left"><span class="level-item">2</span><span class="level-item">Operating system organization 操作系统组织</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Abstracting-physical-resources-抽象物理资源"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">Abstracting physical resources 抽象物理资源</span></span></a></li><li><a class="level is-mobile" href="#User-mode-supervisor-mode-and-system-calls-用户态、监督态与系统调用"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">User mode, supervisor mode, and system calls  用户态、监督态与系统调用</span></span></a></li><li><a class="level is-mobile" href="#Kernel-organization-内核组织"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">Kernel organization 内核组织</span></span></a></li><li><a class="level is-mobile" href="#Code-xv6-organization-xv6-代码的组织"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">Code: xv6 organization xv6 代码的组织</span></span></a></li><li><a class="level is-mobile" href="#Process-overview-进程概览"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">Process overview 进程概览</span></span></a></li><li><a class="level is-mobile" href="#Code-starting-xv6-the-first-process-and-system-call-代码：启动-xv6、第一个进程和系统调用"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">Code: starting xv6, the first process and system call 代码：启动 xv6、第一个进程和系统调用</span></span></a></li><li><a class="level is-mobile" href="#Security-Model-安全模型"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">Security Model 安全模型</span></span></a></li><li><a class="level is-mobile" href="#Real-world"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">Real world</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Page-tables"><span class="level-left"><span class="level-item">3</span><span class="level-item">Page tables</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#paging-hardware-分页硬件"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">paging hardware 分页硬件</span></span></a></li><li><a class="level is-mobile" href="#Kernel-address-space-内核地址空间"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">Kernel address space 内核地址空间</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Traps-and-system-calls-陷阱和系统调用"><span class="level-left"><span class="level-item">4</span><span class="level-item">Traps and system calls 陷阱和系统调用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Code-Calling-system-calls-代码：调用系统调用"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">Code: Calling system calls 代码：调用系统调用</span></span></a></li><li><a class="level is-mobile" href="#Code-System-call-arguments-代码：系统调用参数"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">Code: System call arguments 代码：系统调用参数</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">lbj&#039;s Blog</a><p class="is-size-7"><span>&copy; 2026 lbj</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
