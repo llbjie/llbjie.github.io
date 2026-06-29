@@ -1,0 +1,14 @@
+.navbar.navbar-main {
+  position: fixed !important;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+}
+.navbar.navbar-main .container {
+  max-width: 100% !important;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+body > .section {
+  padding-top: calc(3.25rem + 2rem);
+}
