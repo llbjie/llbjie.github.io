@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>QT-Windows 安装记录总结（基于 aqtinstall） - lbj&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lbj&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lbj&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="QT-Windows 安装记录总结（基于 aqtinstall）"><meta property="og:type" content="blog"><meta property="og:title" content="QT-Windows 安装记录总结（基于 aqtinstall）"><meta property="og:url" content="https://llbjie.github.io/posts/3d7abe36.html"><meta property="og:site_name" content="lbj&#039;s Blog"><meta property="og:description" content="QT-Windows 安装记录总结（基于 aqtinstall）"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://llbjie.github.io/img/og_image.png"><meta property="article:published_time" content="2026-11-13T13:32:51.000Z"><meta property="article:modified_time" content="2026-11-26T11:40:30.067Z"><meta property="article:author" content="lbj"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llbjie.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llbjie.github.io/posts/3d7abe36.html"},"headline":"QT-Windows 安装记录总结（基于 aqtinstall）","image":["https://llbjie.github.io/img/og_image.png"],"datePublished":"2026-11-13T13:32:51.000Z","dateModified":"2026-11-26T11:40:30.067Z","author":{"@type":"Person","name":"lbj"},"publisher":{"@type":"Organization","name":"lbj's Blog","logo":{"@type":"ImageObject","url":{"text":"lbj's Blog"}}},"description":"QT-Windows 安装记录总结（基于 aqtinstall）"}</script><link rel="canonical" href="https://llbjie.github.io/posts/3d7abe36.html"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">lbj&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-lightbulb" id="night-icon"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-11-13T13:32:51.000Z" title="2026/11/13 21:32:51">2026-11-13</time>发表</span><span class="level-item"><time dateTime="2026-11-26T11:40:30.067Z" title="2026/11/26 19:40:30">2026-11-26</time>更新</span><span class="level-item">8 分钟读完 (大约1139个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">QT-Windows 安装记录总结（基于 aqtinstall）</h1><div class="content"><p>QT-Windows 安装记录总结（基于 aqtinstall）</p>
+<span id="more"></span>
+
+<h2 id="1-背景与环境"><a href="#1-背景与环境" class="headerlink" title="1. 背景与环境"></a>1. 背景与环境</h2><ul>
+<li><strong>目标</strong>：在 Windows 上通过命令行方式安装 Qt，用于编译和学习 QML 项目。</li>
+<li><strong>安装工具</strong>：<code>aqtinstall</code>，通过 Scoop 安装。</li>
+<li><strong>安装方式</strong>：不使用 Qt 官方图形安装器，全程使用 <code>aqt</code> 命令。</li>
+<li><strong>编译器架构</strong>：<code>win64_msvc2022_64</code>（MSVC 2022 64 位）。</li>
+<li><strong>安装根目录</strong>：<code>D:\Programs\QT</code>。</li>
+</ul>
+<h3 id="1-1-安装-aqtinstall"><a href="#1-1-安装-aqtinstall" class="headerlink" title="1.1 安装 aqtinstall"></a>1.1 安装 aqtinstall</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install aqtinstall</span><br></pre></td></tr></table></figure>
+
+<p>安装后可使用 <code>aqt</code> 命令。</p>
+<h3 id="1-2-查询可用版本与架构"><a href="#1-2-查询可用版本与架构" class="headerlink" title="1.2 查询可用版本与架构"></a>1.2 查询可用版本与架构</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aqt list<span class="literal">-qt</span> windows desktop</span><br><span class="line">aqt list<span class="literal">-qt</span> windows desktop <span class="literal">--arch</span> <span class="number">6.8</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>Qt 6.8.0 可用架构包括：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">win64_llvm_mingw</span><br><span class="line">win64_mingw</span><br><span class="line">win64_msvc2022_64</span><br><span class="line">win64_msvc2022_arm64_cross_compiled</span><br></pre></td></tr></table></figure>
+
+<p>本次选择 <code>win64_msvc2022_64</code>，与 Visual Studio 2022 匹配。</p>
+<hr>
+<h2 id="2-安装命令格式"><a href="#2-安装命令格式" class="headerlink" title="2. 安装命令格式"></a>2. 安装命令格式</h2><p>基本命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aqt <span class="built_in">install-qt</span> windows desktop &lt;Qt版本&gt; win64_msvc2022_64 <span class="literal">-O</span> D:\Programs\QT <span class="literal">-b</span> &lt;镜像地址&gt;</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li><code>-O D:\Programs\QT</code>：指定安装根目录，<code>aqt</code> 会自动创建 <code>&lt;版本&gt;\msvc2022_64</code> 子目录。</li>
+<li><code>-b &lt;镜像地址&gt;</code>：指定下载镜像源。</li>
+<li>若不指定 <code>-O</code>，Qt 会安装到当前命令所在目录。</li>
+</ul>
+<p>安装完成后的典型路径：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\QT\6.8.0\msvc2022_64</span><br><span class="line">D:\Programs\QT\6.8.1\msvc2022_64</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-镜像源测试记录"><a href="#3-镜像源测试记录" class="headerlink" title="3. 镜像源测试记录"></a>3. 镜像源测试记录</h2><table>
+<thead>
+<tr>
+<th align="left">镜像源</th>
+<th align="left">地址</th>
+<th align="left">测试版本</th>
+<th align="left">结果</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">阿里云</td>
+<td align="left"><code>https://mirrors.aliyun.com/qt/</code></td>
+<td align="left">6.8.0</td>
+<td align="left">✅ 成功</td>
+<td align="left">核心组件全部下载并校验通过</td>
+</tr>
+<tr>
+<td align="left">南京大学</td>
+<td align="left"><code>https://mirror.nju.edu.cn/qt/</code></td>
+<td align="left">6.8.1</td>
+<td align="left">✅ 成功</td>
+<td align="left">安装完整，耗时约 69 秒</td>
+</tr>
+<tr>
+<td align="left">中科大</td>
+<td align="left"><code>https://mirrors.ustc.edu.cn/qtproject/</code></td>
+<td align="left">6.8.1</td>
+<td align="left">❌ 失败</td>
+<td align="left"><code>Failed to locate XML data for Qt version &#39;6.8.1&#39;</code></td>
+</tr>
+<tr>
+<td align="left">清华</td>
+<td align="left"><code>https://mirrors.tuna.tsinghua.edu.cn/qt/</code></td>
+<td align="left">6.8.0</td>
+<td align="left">❌ 失败</td>
+<td align="left"><code>ArchiveChecksumError</code>，文件校验不匹配</td>
+</tr>
+<tr>
+<td align="left">腾讯云</td>
+<td align="left"><code>https://mirrors.cloud.tencent.com/qt/</code></td>
+<td align="left">6.7.3</td>
+<td align="left">❌ 失败</td>
+<td align="left"><code>The packages [&#39;qt_base&#39;] were not found</code></td>
+</tr>
+</tbody></table>
+<h3 id="3-1-成功案例命令"><a href="#3-1-成功案例命令" class="headerlink" title="3.1 成功案例命令"></a>3.1 成功案例命令</h3><p><strong>阿里云安装 Qt 6.8.0：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aqt <span class="built_in">install-qt</span> windows desktop <span class="number">6.8</span>.<span class="number">0</span> win64_msvc2022_64 <span class="literal">-O</span> D:\Programs\QT <span class="literal">-b</span> https://mirrors.aliyun.com/qt/</span><br></pre></td></tr></table></figure>
+
+<p><strong>南京大学安装 Qt 6.8.1：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aqt <span class="built_in">install-qt</span> windows desktop <span class="number">6.8</span>.<span class="number">1</span> win64_msvc2022_64 <span class="literal">-O</span> D:\Programs\QT <span class="literal">-b</span> https://mirror.nju.edu.cn/qt/</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-失败原因归纳"><a href="#3-2-失败原因归纳" class="headerlink" title="3.2 失败原因归纳"></a>3.2 失败原因归纳</h3><ul>
+<li><strong>中科大</strong>：镜像缺少指定版本的 XML 索引数据，<code>aqt</code> 无法定位安装包。</li>
+<li><strong>清华</strong>：下载文件与 <code>aqt</code> 从官方源获取的 SHA-256 校验值不一致，触发 <code>ArchiveChecksumError</code>。</li>
+<li><strong>腾讯云</strong>：镜像元数据异常，提示 <code>qt_base</code> 包未找到，换版本也无法解决。</li>
+<li><strong>官方源</strong> <code>https://download.qt.io/</code>：浏览器可访问，但 <code>aqt</code> 连接不稳定，常自动回退到日本等海外镜像，导致下载中断或缓慢。</li>
+</ul>
+<hr>
+<h2 id="4-路径管理与注意事项"><a href="#4-路径管理与注意事项" class="headerlink" title="4. 路径管理与注意事项"></a>4. 路径管理与注意事项</h2><h3 id="4-1-不要手动移动安装目录"><a href="#4-1-不要手动移动安装目录" class="headerlink" title="4.1 不要手动移动安装目录"></a>4.1 不要手动移动安装目录</h3><p><code>aqt</code> 安装时会写入路径相关配置（如 <code>qmake.exe</code>、<code>.prl</code> 文件）。手动移动 Qt 文件夹可能导致路径错乱。</p>
+<p><strong>正确做法</strong>：删除旧目录，使用 <code>-O</code> 参数重新安装到目标根目录。</p>
+<h3 id="4-2-确认-QML-模块完整"><a href="#4-2-确认-QML-模块完整" class="headerlink" title="4.2 确认 QML 模块完整"></a>4.2 确认 QML 模块完整</h3><p>安装后检查以下目录是否存在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\QT\&lt;版本&gt;\msvc2022_64\qml</span><br><span class="line">D:\Programs\QT\&lt;版本&gt;\msvc2022_64\lib\cmake\Qt6Qml</span><br></pre></td></tr></table></figure>
+
+<p><code>qtdeclarative</code> 是 QML 核心模块，需确保安装完成。</p>
+<hr>
+<h2 id="5-CMake-配置"><a href="#5-CMake-配置" class="headerlink" title="5. CMake 配置"></a>5. CMake 配置</h2><p>在项目构建目录中执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="literal">-DCMAKE_PREFIX_PATH</span>=<span class="string">&quot;D:\Programs\QT\6.8.1\msvc2022_64&quot;</span> ..</span><br></pre></td></tr></table></figure>
+
+<p>若仍找不到 Qt6，可尝试：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="literal">-DQt6_DIR</span>=<span class="string">&quot;D:\Programs\QT\6.8.1\msvc2022_64\lib\cmake\Qt6&quot;</span> ..</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-1-编译器匹配"><a href="#5-1-编译器匹配" class="headerlink" title="5.1 编译器匹配"></a>5.1 编译器匹配</h3><p>安装的是 <code>win64_msvc2022_64</code>，CMake 配置时必须使用 <strong>Visual Studio 2022</strong> 的编译器。建议从：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x64 Native Tools Command Prompt for VS 2022</span><br></pre></td></tr></table></figure>
+
+<p>中运行 CMake，或显式指定生成器：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="literal">-G</span> <span class="string">&quot;Visual Studio 17 2022&quot;</span> <span class="literal">-DCMAKE_PREFIX_PATH</span>=<span class="string">&quot;D:\Programs\QT\6.8.1\msvc2022_64&quot;</span> ..</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-运行时-DLL"><a href="#5-2-运行时-DLL" class="headerlink" title="5.2 运行时 DLL"></a>5.2 运行时 DLL</h3><p>编译出的程序运行时需要 Qt DLL。可将以下路径加入 <code>PATH</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Programs\QT\6.8.1\msvc2022_64\bin</span><br></pre></td></tr></table></figure>
+
+<p>或使用 <code>windeployqt</code> 将依赖复制到程序目录。</p>
+<hr>
+<h2 id="6-最终推荐"><a href="#6-最终推荐" class="headerlink" title="6. 最终推荐"></a>6. 最终推荐</h2><ul>
+<li><strong>优先使用的国内镜像</strong>：<ul>
+<li>阿里云：<code>https://mirrors.aliyun.com/qt/</code></li>
+<li>南京大学：<code>https://mirror.nju.edu.cn/qt/</code></li>
+</ul>
+</li>
+<li><strong>不推荐再尝试的镜像</strong>：中科大、清华、腾讯云（在当前网络环境下均验证失败）。</li>
+<li><strong>官方源</strong>可作为备用，但连接不稳定，容易触发海外回退。</li>
+<li>安装时始终使用 <code>-O D:\Programs\QT</code> 明确指定根目录，避免路径嵌套混乱。</li>
+</ul>
+<hr>
+<h2 id="7-附：常用命令速查"><a href="#7-附：常用命令速查" class="headerlink" title="7. 附：常用命令速查"></a>7. 附：常用命令速查</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 aqtinstall</span></span><br><span class="line">scoop install aqtinstall</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询可用版本</span></span><br><span class="line">aqt list<span class="literal">-qt</span> windows desktop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询某版本架构</span></span><br><span class="line">aqt list<span class="literal">-qt</span> windows desktop <span class="literal">--arch</span> <span class="number">6.8</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用阿里云安装 Qt 6.8.0</span></span><br><span class="line">aqt <span class="built_in">install-qt</span> windows desktop <span class="number">6.8</span>.<span class="number">0</span> win64_msvc2022_64 <span class="literal">-O</span> D:\Programs\QT <span class="literal">-b</span> https://mirrors.aliyun.com/qt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用南京大学安装 Qt 6.8.1</span></span><br><span class="line">aqt <span class="built_in">install-qt</span> windows desktop <span class="number">6.8</span>.<span class="number">1</span> win64_msvc2022_64 <span class="literal">-O</span> D:\Programs\QT <span class="literal">-b</span> https://mirror.nju.edu.cn/qt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># CMake 配置</span></span><br><span class="line">cmake <span class="literal">-DCMAKE_PREFIX_PATH</span>=<span class="string">&quot;D:\Programs\QT\6.8.1\msvc2022_64&quot;</span> ..</span><br></pre></td></tr></table></figure>
+</div><div class="article-licensing box"><div class="licensing-title"><p>QT-Windows 安装记录总结（基于 aqtinstall）</p><p><a href="https://llbjie.github.io/posts/3d7abe36.html">https://llbjie.github.io/posts/3d7abe36.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lbj</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-11-13</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-11-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/e79aaaa2.html"><span class="level-item">读书笔记-三个火枪手</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://utteranc.es/client.js" repo="llbjie/llbjie.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left  order-1 is-sticky"><!--!--></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">lbj&#039;s Blog</a><p class="is-size-7"><span>&copy; 2026 lbj</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
